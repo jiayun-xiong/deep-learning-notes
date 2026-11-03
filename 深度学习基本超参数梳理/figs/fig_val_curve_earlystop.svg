@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 330" width="680" height="330" role="img">
+<title>训练曲线与验证曲线决定 epochs 设多少</title>
+<desc>训练损失持续下降，验证损失先降后升；验证最低点对应最佳 epoch，之后一段耐心窗口内没有改善就早停。</desc>
+
+<defs>
+  <marker id="ax2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#5F5E5A"/>
+  </marker>
+</defs>
+
+<text x="26" y="26" font-family="PingFang SC, sans-serif" font-size="15" font-weight="600" fill="#2C2C2A">epochs 到底设多少？看这两条曲线，而不是猜一个数</text>
+
+<!-- 过拟合区 -->
+<rect x="380" y="62" width="220" height="200" fill="#FBEAF0" opacity="0.6"/>
+<text x="392" y="80" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#993556">这一段：train 还在降，val 反升 = 过拟合</text>
+
+<!-- 轴 -->
+<line x1="80" y1="62" x2="80" y2="262" stroke="#5F5E5A" stroke-width="0.8"/>
+<line x1="80" y1="262" x2="626" y2="262" stroke="#5F5E5A" stroke-width="0.8" marker-end="url(#ax2)"/>
+<text x="70" y="58" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">loss</text>
+<text x="596" y="252" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">epoch</text>
+
+<!-- 曲线 -->
+<path d="M92 96 C 200 140, 380 180, 600 206" fill="none" stroke="#185FA5" stroke-width="2"/>
+<path d="M92 120 C 180 148, 260 152, 330 152 C 420 152, 540 108, 600 82" fill="none" stroke="#993556" stroke-width="2"/>
+
+<!-- 最佳点 -->
+<line x1="330" y1="152" x2="330" y2="262" stroke="#0F6E56" stroke-width="0.6" stroke-dasharray="4 3"/>
+<circle cx="330" cy="152" r="3.5" fill="#0F6E56"/>
+<text x="338" y="146" font-family="PingFang SC, sans-serif" font-size="10" font-weight="600" fill="#0F6E56">best epoch（val 最低点）</text>
+
+<!-- 早停 -->
+<line x1="470" y1="96" x2="470" y2="262" stroke="#993556" stroke-width="0.6" stroke-dasharray="3 3"/>
+<text x="474" y="92" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#993556">early stop</text>
+<g stroke="#993556" stroke-width="0.6">
+  <line x1="330" y1="278" x2="470" y2="278"/>
+  <line x1="330" y1="278" x2="330" y2="274"/>
+  <line x1="470" y1="278" x2="470" y2="274"/>
+</g>
+<text x="400" y="296" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#993556">patience：连续 N 个 epoch 没更好就停</text>
+
+<!-- 图例 -->
+<line x1="96" y1="222" x2="120" y2="222" stroke="#185FA5" stroke-width="2"/>
+<text x="126" y="226" font-family="PingFang SC, sans-serif" font-size="10" fill="#185FA5">train loss（只会降）</text>
+<line x1="96" y1="240" x2="120" y2="240" stroke="#993556" stroke-width="2"/>
+<text x="126" y="244" font-family="PingFang SC, sans-serif" font-size="10" fill="#993556">val loss（会先降后升）</text>
+
+<text x="26" y="318" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">实操：epochs 给一个偏大的上限 + 早停，让它自己停；test 只在最后用一次，别用它挑 epoch</text>
+</svg>

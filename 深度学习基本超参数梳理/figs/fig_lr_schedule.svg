@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 330" width="680" height="330" role="img">
+<title>学习率调度：线性 warmup 加余弦衰减</title>
+<desc>横轴是 step，纵轴是学习率：前 warmup_steps 步从 0 线性升到 peak_lr，之后按余弦曲线衰减到 min_lr，直到 total_steps。</desc>
+
+<defs>
+  <marker id="ax" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#5F5E5A"/>
+  </marker>
+</defs>
+
+<text x="26" y="26" font-family="PingFang SC, sans-serif" font-size="15" font-weight="600" fill="#2C2C2A">lr 调度器的时钟是 step，不是 epoch</text>
+<text x="26" y="44" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">最常见的配方：先线性 warmup，再余弦衰减到 min_lr</text>
+
+<!-- 坐标轴 -->
+<line x1="80" y1="62" x2="80" y2="262" stroke="#5F5E5A" stroke-width="0.8"/>
+<line x1="80" y1="262" x2="626" y2="262" stroke="#5F5E5A" stroke-width="0.8" marker-end="url(#ax)"/>
+<text x="72" y="58" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">lr</text>
+<text x="612" y="252" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">step</text>
+
+<!-- 参考线 -->
+<line x1="80" y1="92" x2="170" y2="92" stroke="#BA7517" stroke-width="0.5" stroke-dasharray="4 3"/>
+<line x1="170" y1="92" x2="170" y2="262" stroke="#B4B2A9" stroke-width="0.5" stroke-dasharray="4 3"/>
+<line x1="170" y1="208" x2="600" y2="208" stroke="#0F6E56" stroke-width="0.5" stroke-dasharray="4 3"/>
+<line x1="600" y1="208" x2="600" y2="262" stroke="#B4B2A9" stroke-width="0.5" stroke-dasharray="4 3"/>
+
+<!-- 曲线 -->
+<path d="M80 262 L170 92" fill="none" stroke="#BA7517" stroke-width="2"/>
+<path d="M170 92 C 300 92, 430 140, 600 208" fill="none" stroke="#0F6E56" stroke-width="2"/>
+
+<!-- 标注 -->
+<text x="176" y="86" font-family="PingFang SC, sans-serif" font-size="10" font-weight="600" fill="#854F0B">peak_lr</text>
+<text x="596" y="224" text-anchor="end" font-family="PingFang SC, sans-serif" font-size="10" font-weight="600" fill="#0F6E56">min_lr（如 peak 的 10%）</text>
+<text x="176" y="256" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">warmup_steps</text>
+
+<!-- x 轴说明 -->
+<g stroke="#BA7517" stroke-width="0.5">
+  <line x1="80" y1="272" x2="170" y2="272"/>
+  <line x1="80" y1="272" x2="80" y2="276"/>
+  <line x1="170" y1="272" x2="170" y2="276"/>
+</g>
+<text x="125" y="290" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#854F0B">① 线性升温（1%~5% 的步数）</text>
+<text x="385" y="290" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#0F6E56">② 余弦衰减（>90% 的步数）</text>
+<text x="600" y="290" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">total_steps</text>
+
+<text x="26" y="316" font-family="PingFang SC, sans-serif" font-size="10" fill="#993556">改了 batch_size 或 epochs，total_steps 就变，曲线形状与终点跟着变——这就是"换 batch 要按比例调 lr"的根源</text>
+</svg>

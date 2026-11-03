@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 500" width="680" height="500" role="img">
+<title>训练的三层嵌套：样本、batch/step、epoch</title>
+<desc>训练集打乱后按 batch_size 切成 K 个 batch，每个 batch 对应一次参数更新（step），K 个 step 走完是一个 epoch；中层把单个 step 放大成取数、前向、反向、更新四步。</desc>
+
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#5F5E5A"/>
+  </marker>
+  <marker id="arrowO" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#BA7517"/>
+  </marker>
+</defs>
+
+<text x="26" y="26" font-family="PingFang SC, sans-serif" font-size="15" font-weight="600" fill="#2C2C2A">一次训练的三层嵌套：样本 → batch / step → epoch</text>
+
+<!-- 最上层：数据集 -->
+<rect x="70" y="52" width="540" height="42" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.6"/>
+<g stroke="#B4B2A9" stroke-width="0.5">
+  <line x1="124" y1="52" x2="124" y2="94"/>
+  <line x1="178" y1="52" x2="178" y2="94"/>
+  <line x1="232" y1="52" x2="232" y2="94"/>
+  <line x1="286" y1="52" x2="286" y2="94"/>
+  <line x1="340" y1="52" x2="340" y2="94"/>
+  <line x1="394" y1="52" x2="394" y2="94"/>
+  <line x1="448" y1="52" x2="448" y2="94"/>
+  <line x1="502" y1="52" x2="502" y2="94"/>
+  <line x1="556" y1="52" x2="556" y2="94"/>
+</g>
+<text x="340" y="78" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" fill="#2C2C2A">训练集：N 个样本（每个 epoch 开始重新 shuffle 一次）</text>
+
+<line x1="340" y1="96" x2="340" y2="118" stroke="#5F5E5A" stroke-width="0.8" marker-end="url(#arrow)"/>
+<text x="352" y="112" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">按 batch_size = B 切开 → K = ⌈N / B⌉ 个 batch</text>
+
+<!-- batch 序列 -->
+<g>
+  <rect x="73" y="126" width="54" height="34" rx="6" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.6"/>
+  <text x="100" y="147" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#04342C">batch 1</text>
+  <rect x="133" y="126" width="54" height="34" rx="6" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.6"/>
+  <text x="160" y="147" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#04342C">batch 2</text>
+  <rect x="193" y="126" width="54" height="34" rx="6" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.6"/>
+  <text x="220" y="147" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#04342C">batch 3</text>
+  <rect x="253" y="126" width="54" height="34" rx="6" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.6"/>
+  <text x="280" y="147" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#04342C">batch 4</text>
+  <rect x="313" y="126" width="54" height="34" rx="6" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.6"/>
+  <text x="340" y="147" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#04342C">batch 5</text>
+  <rect x="373" y="126" width="54" height="34" rx="6" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.6"/>
+  <text x="400" y="147" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#04342C">batch 6</text>
+  <rect x="433" y="126" width="54" height="34" rx="6" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.6"/>
+  <text x="460" y="147" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#04342C">batch 7</text>
+  <rect x="493" y="126" width="54" height="34" rx="6" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.6" stroke-dasharray="3 2"/>
+  <text x="520" y="147" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#04342C">batch K</text>
+  <text x="566" y="147" font-family="PingFang SC, sans-serif" font-size="11" fill="#5F5E5A">…</text>
+</g>
+
+<!-- step 标注 -->
+<g stroke="#0F6E56" stroke-width="0.5">
+  <line x1="73" y1="168" x2="607" y2="168"/>
+  <line x1="73" y1="168" x2="73" y2="173"/>
+  <line x1="607" y1="168" x2="607" y2="173"/>
+</g>
+<text x="340" y="188" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11" fill="#0F6E56">每走完 1 个 batch = 1 个 step = 1 次参数更新　·　K 个 step 走完 = 1 个 epoch</text>
+
+<!-- 放大面板 -->
+<rect x="34" y="204" width="612" height="248" rx="10" fill="#FCFBF8" stroke="#B4B2A9" stroke-width="0.7" stroke-dasharray="5 3"/>
+<text x="50" y="226" font-family="PingFang SC, sans-serif" font-size="12" font-weight="600" fill="#5F5E5A">把 1 个 step 放大：里面其实是 4 件事</text>
+
+<rect x="50" y="240" width="132" height="66" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.6"/>
+<text x="116" y="264" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11.5" font-weight="600" fill="#2C2C2A">① 取 1 个 batch</text>
+<text x="116" y="284" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">B 条样本进 GPU</text>
+
+<rect x="196" y="240" width="132" height="66" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.6"/>
+<text x="262" y="264" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11.5" font-weight="600" fill="#042C53">② 前向 + loss</text>
+<text x="262" y="284" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#185FA5">算出标量 L</text>
+
+<rect x="342" y="240" width="132" height="66" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.6"/>
+<text x="408" y="264" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11.5" font-weight="600" fill="#26215C">③ 反向传播</text>
+<text x="408" y="278" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#534AB7">求 ∂L/∂θ</text>
+<text x="408" y="292" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#534AB7">累加进 .grad</text>
+
+<rect x="488" y="240" width="132" height="66" rx="8" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.8"/>
+<text x="554" y="262" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11.5" font-weight="600" fill="#412402">④ optimizer.step()</text>
+<text x="554" y="278" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#854F0B">θ ← θ − lr · 更新量</text>
+<text x="554" y="294" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" font-weight="600" fill="#993556">每个 step 都改写</text>
+
+<line x1="184" y1="273" x2="194" y2="273" stroke="#5F5E5A" stroke-width="0.8" marker-end="url(#arrow)"/>
+<line x1="330" y1="273" x2="340" y2="273" stroke="#5F5E5A" stroke-width="0.8" marker-end="url(#arrow)"/>
+<line x1="476" y1="273" x2="486" y2="273" stroke="#5F5E5A" stroke-width="0.8" marker-end="url(#arrow)"/>
+
+<path d="M554 308 C554 336 500 340 340 340 C180 340 116 336 116 308" fill="none" stroke="#BA7517" stroke-width="0.8" stroke-dasharray="4 3" marker-end="url(#arrowO)"/>
+<text x="335" y="358" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#854F0B">回到 ① 取下一个 batch，重复 K 次（有梯度累积时，重复 accum_steps 次才进 ④）</text>
+
+<!-- 底层：epoch 边界 -->
+<rect x="34" y="412" width="612" height="36" rx="8" fill="#0F6E56" opacity="0.08"/>
+<text x="46" y="435" font-family="PingFang SC, sans-serif" font-size="11" fill="#04342C">K 个 step 走完 = 1 个 epoch　→　验证集评估　→　（可选）存 checkpoint　→　进入下一个 epoch</text>
+<text x="46" y="468" font-family="PingFang SC, sans-serif" font-size="10" fill="#993556">注意：θ 每个 step 都在变；checkpoint 只是把"当时的 θ"复制到磁盘——保存不等于更新</text>
+</svg>

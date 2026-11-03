@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 380" width="680" height="380" role="img">
+<title>深度学习超参数的五类划分（真实 API 参数名）</title>
+<desc>超参数按作用对象分成数据类、优化类、正则类、结构类、流程类五组，每组用 PyTorch 与 HuggingFace 的真实参数名列出最常用的项，右下角给出推荐的调参顺序。</desc>
+
+<text x="26" y="26" font-family="PingFang SC, sans-serif" font-size="15" font-weight="600" fill="#2C2C2A">超参数不是一个清单，而是五组"旋钮"</text>
+<text x="26" y="44" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">每一组装的是同一类对象：数据怎么进来、参数怎么走、模型怎么被约束、网络多大、训练怎么调度</text>
+
+<!-- 卡片1 数据类 -->
+<rect x="26" y="58" width="200" height="140" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.6"/>
+<text x="40" y="80" font-family="PingFang SC, sans-serif" font-size="12.5" font-weight="600" fill="#04342C">① 数据类</text>
+<text x="40" y="96" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#0F6E56">决定"一个 batch 长什么样"（DataLoader）</text>
+<text x="40" y="118" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#04342C">batch_size</text>
+<text x="40" y="137" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#04342C">shuffle / drop_last</text>
+<text x="40" y="156" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#04342C">max_length + padding</text>
+<text x="40" y="175" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#04342C">数据增强（transforms.v2）</text>
+<text x="40" y="190" font-family="PingFang SC, sans-serif" font-size="9" fill="#5F5E5A">torchvision.transforms.v2</text>
+
+<!-- 卡片2 优化类 -->
+<rect x="240" y="58" width="200" height="140" rx="10" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.6"/>
+<text x="254" y="80" font-family="PingFang SC, sans-serif" font-size="12.5" font-weight="600" fill="#633806">② 优化类（最值钱）</text>
+<text x="254" y="96" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#854F0B">决定"参数往哪走、走多远"</text>
+<text x="254" y="118" font-family="PingFang SC, sans-serif" font-size="10.5" font-weight="600" fill="#412402">lr ★</text>
+<text x="254" y="137" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#412402">SGD / AdamW（torch.optim）</text>
+<text x="254" y="156" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#412402">betas, eps, weight_decay</text>
+<text x="254" y="175" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#412402">lr_scheduler / max_norm</text>
+<text x="254" y="190" font-family="PingFang SC, sans-serif" font-size="9" fill="#5F5E5A">torch.optim.lr_scheduler</text>
+
+<!-- 卡片3 正则类 -->
+<rect x="454" y="58" width="200" height="140" rx="10" fill="#FBEAF0" stroke="#993556" stroke-width="0.6"/>
+<text x="468" y="80" font-family="PingFang SC, sans-serif" font-size="12.5" font-weight="600" fill="#4B1528">③ 正则类</text>
+<text x="468" y="96" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#993556">决定"模型能记住多少"</text>
+<text x="468" y="118" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#4B1528">nn.Dropout(p=…)</text>
+<text x="468" y="137" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#4B1528">weight_decay（AdamW）</text>
+<text x="468" y="156" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#4B1528">label_smoothing</text>
+<text x="468" y="175" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#4B1528">patience（早停）</text>
+<text x="468" y="190" font-family="PingFang SC, sans-serif" font-size="9" fill="#5F5E5A">CrossEntropyLoss / 回调</text>
+
+<!-- 卡片4 结构类 -->
+<rect x="26" y="210" width="200" height="140" rx="10" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.6"/>
+<text x="40" y="232" font-family="PingFang SC, sans-serif" font-size="12.5" font-weight="600" fill="#26215C">④ 结构类</text>
+<text x="40" y="248" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#534AB7">决定"模型有多大"</text>
+<text x="40" y="270" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#26215C">d_model / nhead</text>
+<text x="40" y="289" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#26215C">num_layers</text>
+<text x="40" y="308" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#26215C">dim_feedforward</text>
+<text x="40" y="327" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#26215C">vocab_size</text>
+<text x="40" y="344" font-family="PingFang SC, sans-serif" font-size="9" fill="#534AB7">HF 别名：hidden_size 等</text>
+
+<!-- 卡片5 流程类 -->
+<rect x="240" y="210" width="200" height="140" rx="10" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.6"/>
+<text x="254" y="232" font-family="PingFang SC, sans-serif" font-size="12.5" font-weight="600" fill="#042C53">⑤ 流程类</text>
+<text x="254" y="248" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#185FA5">决定"跑多久、什么时候停"</text>
+<text x="254" y="270" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#042C53">num_train_epochs / max_steps</text>
+<text x="254" y="289" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#042C53">gradient_accumulation_steps</text>
+<text x="254" y="308" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#042C53">eval_steps / save_steps</text>
+<text x="254" y="327" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#042C53">seed（torch.manual_seed）</text>
+<text x="254" y="344" font-family="PingFang SC, sans-serif" font-size="9" fill="#185FA5">多数为 HF TrainingArguments</text>
+
+<!-- 卡片6 调参顺序 -->
+<rect x="454" y="210" width="200" height="140" rx="10" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.6"/>
+<text x="468" y="232" font-family="PingFang SC, sans-serif" font-size="12.5" font-weight="600" fill="#2C2C2A">调参顺序（重要度）</text>
+<text x="468" y="254" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#2C2C2A">① lr</text>
+<text x="468" y="274" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#2C2C2A">② 有效 batch（B × accum）</text>
+<text x="468" y="294" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#2C2C2A">③ 正则（dropout / wd）</text>
+<text x="468" y="314" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#2C2C2A">④ 结构（受算力约束）</text>
+<text x="468" y="334" font-family="PingFang SC, sans-serif" font-size="10" font-weight="600" fill="#993556">lr 错了，后面三项都白调</text>
+</svg>

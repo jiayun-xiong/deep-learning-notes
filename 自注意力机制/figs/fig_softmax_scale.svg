@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 360" width="680" height="360" role="img">
+<title>缩放点积：不除根号 dk 时 softmax 会饱和</title>
+<desc>横轴是头的维度 dk（对数刻度），纵轴是一行里最大注意力权重。不除根号 dk 时，最大权重随 dk 迅速逼近 1；除以根号 dk 后，权重横定在 0.57。</desc>
+
+<text x="24" y="26" font-family="PingFang SC, sans-serif" font-size="14" font-weight="500" fill="#2C2C2A">为什么非要除以 √dk：一个数值实验</text>
+<text x="24" y="46" font-family="PingFang SC, sans-serif" font-size="11.5" fill="#5F5E5A">设一行 6 个候选里，最强匹配比其余高 1.9 个标准差；纵轴是它最后拿到的权重</text>
+
+<line x1="80" y1="300" x2="620" y2="300" stroke="#888780" stroke-width="1"/>
+<line x1="80" y1="60" x2="80" y2="300" stroke="#888780" stroke-width="1"/>
+
+<line x1="80" y1="240" x2="620" y2="240" stroke="#E5E3DC" stroke-width="1"/>
+<line x1="80" y1="180" x2="620" y2="180" stroke="#E5E3DC" stroke-width="1"/>
+<line x1="80" y1="120" x2="620" y2="120" stroke="#E5E3DC" stroke-width="1"/>
+<line x1="80" y1="60" x2="620" y2="60" stroke="#E5E3DC" stroke-width="1"/>
+
+<text x="72" y="304" text-anchor="end" font-family="Menlo, monospace" font-size="9.5" fill="#888780">0</text>
+<text x="72" y="244" text-anchor="end" font-family="Menlo, monospace" font-size="9.5" fill="#888780">0.25</text>
+<text x="72" y="184" text-anchor="end" font-family="Menlo, monospace" font-size="9.5" fill="#888780">0.50</text>
+<text x="72" y="124" text-anchor="end" font-family="Menlo, monospace" font-size="9.5" fill="#888780">0.75</text>
+<text x="72" y="64" text-anchor="end" font-family="Menlo, monospace" font-size="9.5" fill="#888780">1.00</text>
+
+<text x="157" y="318" text-anchor="middle" font-family="Menlo, monospace" font-size="10" fill="#5F5E5A">2</text>
+<text x="311" y="318" text-anchor="middle" font-family="Menlo, monospace" font-size="10" fill="#5F5E5A">8</text>
+<text x="466" y="318" text-anchor="middle" font-family="Menlo, monospace" font-size="10" fill="#5F5E5A">32</text>
+<text x="570" y="318" text-anchor="middle" font-family="Menlo, monospace" font-size="10" fill="#5F5E5A">64</text>
+<text x="596" y="318" font-family="Menlo, monospace" font-size="10" fill="#5F5E5A">dk</text>
+
+<polyline points="157,120 311,64.8 466,60.02 570,60" fill="none" stroke="#993C1D" stroke-width="2"/>
+<circle cx="157" cy="120" r="3.5" fill="#993C1D"/>
+<circle cx="311" cy="64.8" r="3.5" fill="#993C1D"/>
+<circle cx="466" cy="60.02" r="3.5" fill="#993C1D"/>
+<circle cx="570" cy="60" r="3.5" fill="#993C1D"/>
+
+<text x="157" y="110" text-anchor="middle" font-family="Menlo, monospace" font-size="9.5" fill="#993C1D">0.75</text>
+<text x="311" y="82" text-anchor="middle" font-family="Menlo, monospace" font-size="9.5" fill="#993C1D">0.98</text>
+<text x="466" y="78" text-anchor="middle" font-family="Menlo, monospace" font-size="9.5" fill="#993C1D">0.9999</text>
+<text x="600" y="66" text-anchor="middle" font-family="Menlo, monospace" font-size="9.5" fill="#993C1D">1.0000</text>
+
+<polyline points="157,163.2 311,163.2 466,163.2 570,163.2" fill="none" stroke="#1D9E75" stroke-width="2" stroke-dasharray="5 4"/>
+<circle cx="157" cy="163.2" r="3.5" fill="#1D9E75"/>
+<circle cx="311" cy="163.2" r="3.5" fill="#1D9E75"/>
+<circle cx="466" cy="163.2" r="3.5" fill="#1D9E75"/>
+<circle cx="570" cy="163.2" r="3.5" fill="#1D9E75"/>
+
+<text x="330" y="158" font-family="PingFang SC, sans-serif" font-size="10" fill="#0F6E56">除以 √dk 后恒为 0.57，与宽度无关</text>
+
+<rect x="96" y="198" width="330" height="66" rx="6" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+<text x="108" y="218" font-family="PingFang SC, sans-serif" font-size="10" fill="#712B13">不除 √dk：dk 一变大就逼近 one-hot，其余 5 个加起来不到百万分之一；</text>
+<text x="108" y="236" font-family="PingFang SC, sans-serif" font-size="10" fill="#712B13">softmax 一饱和，梯度里那个 p(1−p) 变成 0，被冷落的 token 永远学不动。</text>
+<text x="108" y="254" font-family="PingFang SC, sans-serif" font-size="10" fill="#712B13">这就是"注意力塌缩"。</text>
+
+<line x1="24" y1="336" x2="656" y2="336" stroke="#D3D1C7" stroke-width="1"/>
+<text x="24" y="356" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">记住结论：√dk 不是在"让权重变小"，而是在"让尖锐程度与 dk 无关"——这就是它叫缩放点积的原因</text>
+</svg>

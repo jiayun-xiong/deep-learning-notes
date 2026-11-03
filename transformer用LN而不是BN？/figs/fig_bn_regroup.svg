@@ -1,0 +1,37 @@
+<svg viewBox="0 0 680 300" width="100%" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>同一样本因 batch 分组不同而得到不同归一化输出</title>
+  <desc>样本 x=1 固定不变，当它与 {2,3} 同批时 BN 输出为 -1.22，与 {10,11} 同批时输出为 -1.41，说明 BatchNorm 的输出依赖同批其他样本。</desc>
+
+  <text x="40" y="30" font-size="13" font-weight="500" fill="#26215C" font-family="sans-serif">样本 x = 1 固定不变，只改它所在的 batch</text>
+
+  <g font-size="12" fill="#5F5E5A" font-family="sans-serif">
+    <text x="56" y="58">所在的 batch</text>
+    <text x="230" y="58">μ</text>
+    <text x="320" y="58">σ</text>
+    <text x="420" y="58">x = 1 的 BN 输出</text>
+  </g>
+  <line x1="40" y1="66" x2="640" y2="66" stroke="#B4B2A9" stroke-width="0.5"/>
+
+  <g font-size="12.5" font-family="sans-serif">
+    <text x="56" y="94" fill="#2C2C2A">{1, 2, 3}</text>
+    <text x="230" y="94" fill="#2C2C2A">2</text>
+    <text x="320" y="94" fill="#2C2C2A">0.82</text>
+    <text x="420" y="94" fill="#0F6E56" font-weight="500">−1.22</text>
+  </g>
+  <line x1="40" y1="106" x2="640" y2="106" stroke="#B4B2A9" stroke-width="0.5"/>
+
+  <g font-size="12.5" font-family="sans-serif">
+    <text x="56" y="134" fill="#2C2C2A">{1, 10, 11}</text>
+    <text x="230" y="134" fill="#2C2C2A">7.33</text>
+    <text x="320" y="134" fill="#2C2C2A">4.50</text>
+    <text x="420" y="134" fill="#A32D2D" font-weight="500">−1.41</text>
+  </g>
+  <line x1="40" y1="146" x2="640" y2="146" stroke="#B4B2A9" stroke-width="0.5"/>
+
+  <rect x="40" y="170" width="600" height="46" rx="8" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
+  <text x="56" y="190" font-size="12" fill="#2C2C2A" font-family="sans-serif">x = 1 的数值一个字没变，输出却从 −1.22 变成 −1.41 —— 因为它「跟谁一组」变了。</text>
+  <text x="56" y="208" font-size="12" fill="#2C2C2A" font-family="sans-serif">极端情形：B = 1 时 σ = 0，输出恒为 0；B = 2 时两个数永远被压成 −1 和 +1。</text>
+
+  <text x="40" y="248" font-size="12" fill="#444441" font-family="sans-serif">也就是说，模型学到的不是 f(样本)，而是 f(样本, 同批的其他样本)。</text>
+  <text x="40" y="270" font-size="12" fill="#444441" font-family="sans-serif">对语言模型而言这是语义灾难：同一句话的表示会随 batch 组成而漂移。</text>
+</svg>

@@ -1,0 +1,67 @@
+<svg viewBox="0 0 680 330" width="100%" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>LayerNorm 与 BatchNorm 的数值计算例子</title>
+  <desc>以 batch 中两个三维向量 x_A=[1,2,3] 与 x_B=[10,0,-10] 为例，分别手算 LayerNorm 与 BatchNorm 的统计量与归一化结果，展示 BN 的结果依赖 batch 中其他样本而 LN 不依赖。</desc>
+  <defs></defs>
+
+  <text x="40" y="32" font-size="14" font-weight="500" fill="#26215C" font-family="sans-serif">batch = { x_A = [1, 2, 3]，x_B = [10, 0, −10] }，d = 3</text>
+
+  <rect x="40" y="50" width="290" height="240" rx="12" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
+  <text x="185" y="78" font-size="13" font-weight="500" fill="#0F6E56" text-anchor="middle" font-family="sans-serif">LayerNorm：各算各的</text>
+
+  <g font-size="12" fill="#5F5E5A" font-family="sans-serif">
+    <text x="62" y="106">向量</text>
+    <text x="130" y="106">μ</text>
+    <text x="175" y="106">σ²</text>
+    <text x="228" y="106">LN(x)</text>
+  </g>
+  <line x1="60" y1="114" x2="310" y2="114" stroke="#B4B2A9" stroke-width="0.5"/>
+  <g font-size="12.5" fill="#2C2C2A" font-family="sans-serif">
+    <text x="62" y="140" font-weight="500">x_A</text>
+    <text x="130" y="140">2</text>
+    <text x="175" y="140">2/3</text>
+    <text x="228" y="140">[−1.22, 0, 1.22]</text>
+  </g>
+  <g font-size="12.5" fill="#2C2C2A" font-family="sans-serif">
+    <text x="62" y="170" font-weight="500">x_B</text>
+    <text x="130" y="170">0</text>
+    <text x="175" y="170">200/3</text>
+    <text x="228" y="170">[1.22, 0, −1.22]</text>
+  </g>
+  <line x1="60" y1="184" x2="310" y2="184" stroke="#B4B2A9" stroke-width="0.5"/>
+  <text x="60" y="212" font-size="12" fill="#085041" font-family="sans-serif">每个 token 的结果只由自己决定。</text>
+  <text x="60" y="234" font-size="12" fill="#085041" font-family="sans-serif">哪怕 x_B 独自出现在 batch 里，</text>
+  <text x="60" y="256" font-size="12" fill="#085041" font-family="sans-serif">结果也一模一样 —— 与 batch 无关。</text>
+
+  <rect x="350" y="50" width="290" height="240" rx="12" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
+  <text x="495" y="78" font-size="13" font-weight="500" fill="#993C1D" text-anchor="middle" font-family="sans-serif">BatchNorm：按列跨样本算</text>
+
+  <g font-size="12" fill="#5F5E5A" font-family="sans-serif">
+    <text x="372" y="106">维度</text>
+    <text x="432" y="106">该列取值</text>
+    <text x="512" y="106">μⱼ</text>
+    <text x="558" y="106">σⱼ</text>
+  </g>
+  <line x1="370" y1="114" x2="620" y2="114" stroke="#B4B2A9" stroke-width="0.5"/>
+  <g font-size="12.5" fill="#2C2C2A" font-family="sans-serif">
+    <text x="372" y="140" font-weight="500">d₁</text>
+    <text x="432" y="140">{1, 10}</text>
+    <text x="512" y="140">5.5</text>
+    <text x="558" y="140">4.5</text>
+  </g>
+  <g font-size="12.5" fill="#2C2C2A" font-family="sans-serif">
+    <text x="372" y="165" font-weight="500">d₂</text>
+    <text x="432" y="165">{2, 0}</text>
+    <text x="512" y="165">1</text>
+    <text x="558" y="165">1</text>
+  </g>
+  <g font-size="12.5" fill="#2C2C2A" font-family="sans-serif">
+    <text x="372" y="190" font-weight="500">d₃</text>
+    <text x="432" y="190">{3, −10}</text>
+    <text x="512" y="190">−3.5</text>
+    <text x="558" y="190">6.5</text>
+  </g>
+  <line x1="370" y1="204" x2="620" y2="204" stroke="#B4B2A9" stroke-width="0.5"/>
+  <text x="370" y="230" font-size="12" fill="#712B13" font-family="sans-serif">BN(x_A) ≈ [−1, 1, 1]，BN(x_B) ≈ [1, −1, −1]</text>
+  <text x="370" y="252" font-size="12" fill="#712B13" font-family="sans-serif">x_B 的结果被 x_A 完全决定，</text>
+  <text x="370" y="274" font-size="12" fill="#712B13" font-family="sans-serif">batch 一换，x_B 的输出立刻变掉。</text>
+</svg>

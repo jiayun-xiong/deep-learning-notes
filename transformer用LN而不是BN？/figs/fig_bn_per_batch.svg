@@ -1,0 +1,40 @@
+<svg viewBox="0 0 680 330" width="100%" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>同一个数据集切成的三个 batch 拥有不同的 μ 和 σ</title>
+  <desc>数据集按 batch size 3 切成三批，每一批各自计算均值和标准差，结果互不相同；训练时会把这些统计量跨 batch 累积成 running 均值方差，供推理使用。</desc>
+  <defs>
+    <marker id="aG2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.2" stroke-linecap="round"/>
+    </marker>
+  </defs>
+
+  <text x="40" y="28" font-size="13" font-weight="500" fill="#26215C" font-family="sans-serif">同一个数据集（d=1，共 9 个数），切成 3 个 batch</text>
+
+  <rect x="40" y="44" width="400" height="54" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+  <text x="56" y="64" font-size="12.5" fill="#04342C" font-family="sans-serif">batch 1　{1, 2, 3}　　μ = 2，σ = 0.82</text>
+  <text x="56" y="84" font-size="12" fill="#0F6E56" font-family="sans-serif">输出　[−1.22, 0, 1.22]</text>
+  <line x1="440" y1="71" x2="474" y2="71" stroke="#888780" stroke-width="1.2" fill="none" marker-end="url(#aG2)"/>
+
+  <rect x="40" y="108" width="400" height="54" rx="8" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+  <text x="56" y="128" font-size="12.5" fill="#412402" font-family="sans-serif">batch 2　{10, 11, 20}　　μ = 13.67，σ = 4.50</text>
+  <text x="56" y="148" font-size="12" fill="#854F0B" font-family="sans-serif">输出　[−0.82, −0.59, 1.41]</text>
+  <line x1="440" y1="135" x2="474" y2="135" stroke="#888780" stroke-width="1.2" fill="none" marker-end="url(#aG2)"/>
+
+  <rect x="40" y="172" width="400" height="54" rx="8" fill="#FCEBEB" stroke="#A32D2D" stroke-width="0.5"/>
+  <text x="56" y="192" font-size="12.5" fill="#501313" font-family="sans-serif">batch 3　{4, 7, 9}　　μ = 6.67，σ = 2.05</text>
+  <text x="56" y="212" font-size="12" fill="#A32D2D" font-family="sans-serif">输出　[−1.30, 0.16, 1.14]</text>
+  <line x1="440" y1="199" x2="474" y2="199" stroke="#888780" stroke-width="1.2" fill="none" marker-end="url(#aG2)"/>
+
+  <rect x="480" y="44" width="160" height="182" rx="10" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+  <text x="560" y="70" font-size="12.5" fill="#2C2C2A" text-anchor="middle" font-family="sans-serif">running 统计量</text>
+  <text x="560" y="92" font-size="11.5" fill="#5F5E5A" text-anchor="middle" font-family="sans-serif">训练中逐 batch 累积</text>
+  <text x="560" y="112" font-size="11.5" fill="#5F5E5A" text-anchor="middle" font-family="sans-serif">μ_run ← 0.9·μ_run + 0.1·μ_b</text>
+  <text x="560" y="134" font-size="11.5" fill="#5F5E5A" text-anchor="middle" font-family="sans-serif">（滑动平均，可调 momentum）</text>
+  <line x1="496" y1="150" x2="624" y2="150" stroke="#B4B2A9" stroke-width="0.5"/>
+  <text x="560" y="172" font-size="11.5" fill="#185FA5" text-anchor="middle" font-family="sans-serif">推理时用这一份固定的</text>
+  <text x="560" y="192" font-size="11.5" fill="#185FA5" text-anchor="middle" font-family="sans-serif">μ_run、σ_run，不再现算</text>
+  <text x="560" y="212" font-size="11.5" fill="#5F5E5A" text-anchor="middle" font-family="sans-serif">（batch=1 也能前向）</text>
+
+  <text x="40" y="252" font-size="12" fill="#444441" font-family="sans-serif">三批数据各自算出的 μ、σ 完全不同 → 同一个数在不同 batch 里被换算成不同的输出值。</text>
+  <text x="40" y="274" font-size="12" fill="#444441" font-family="sans-serif">这就是「跨 batch」的第一层含义：统计量逐 batch 重算、batch 之间不共享。</text>
+  <text x="40" y="296" font-size="12" fill="#444441" font-family="sans-serif">第二层含义：推理时无处可算，只能回退到跨所有 batch 累积的那份 running 值。</text>
+</svg>

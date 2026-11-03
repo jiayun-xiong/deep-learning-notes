@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 316" width="680" height="316" role="img">
+<title>更新参数与保存 checkpoint 是两条不同频率的时间线</title>
+<desc>上排：每个 step 都原地改写内存中的 θ；下排：每隔若干步或每个 epoch 才把当时的 θ 复制一份到磁盘。</desc>
+
+<defs>
+  <marker id="a1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#BA7517"/>
+  </marker>
+</defs>
+
+<text x="26" y="26" font-family="PingFang SC, sans-serif" font-size="15" font-weight="600" fill="#2C2C2A">"更新"和"保存"不是一回事：一个每步发生，一个偶尔发生</text>
+
+<!-- 上排标题 -->
+<text x="26" y="58" font-family="PingFang SC, sans-serif" font-size="11.5" font-weight="600" fill="#633806">① 内存里的 θ：每个 step 原地覆盖</text>
+
+<!-- 节点 -->
+<g>
+  <circle cx="84" cy="108" r="17" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.7"/>
+  <text x="84" y="112" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#2C2C2A">θ₀</text>
+  <circle cx="175" cy="108" r="17" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.7"/>
+  <text x="175" y="112" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#412402">θ₁</text>
+  <circle cx="266" cy="108" r="17" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.7"/>
+  <text x="266" y="112" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#412402">θ₂</text>
+  <circle cx="357" cy="108" r="17" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.7"/>
+  <text x="357" y="112" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#412402">θ₃</text>
+  <circle cx="448" cy="108" r="17" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.7"/>
+  <text x="448" y="112" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#412402">θ₄</text>
+  <circle cx="539" cy="108" r="17" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.7"/>
+  <text x="539" y="112" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#412402">θ₅</text>
+</g>
+
+<g stroke="#BA7517" stroke-width="0.9" marker-end="url(#a1)">
+  <line x1="101" y1="108" x2="154" y2="108"/>
+  <line x1="192" y1="108" x2="245" y2="108"/>
+  <line x1="283" y1="108" x2="336" y2="108"/>
+  <line x1="374" y1="108" x2="427" y2="108"/>
+  <line x1="465" y1="108" x2="518" y2="108"/>
+</g>
+<g font-family="PingFang SC, sans-serif" font-size="9" fill="#854F0B" text-anchor="middle">
+  <text x="128" y="96">step 1</text>
+  <text x="219" y="96">step 2</text>
+  <text x="310" y="96">step 3</text>
+  <text x="401" y="96">step 4</text>
+  <text x="492" y="96">step 5</text>
+</g>
+<text x="596" y="112" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">…</text>
+
+<!-- 下排标题 -->
+<text x="26" y="170" font-family="PingFang SC, sans-serif" font-size="11.5" font-weight="600" fill="#042C53">② 磁盘上的 checkpoint：每 N 步 / 每 epoch 复制一份快照</text>
+
+<!-- 落盘虚线 -->
+<g stroke="#185FA5" stroke-width="0.6" stroke-dasharray="4 3">
+  <line x1="219" y1="126" x2="219" y2="196"/>
+  <line x1="492" y1="126" x2="492" y2="196"/>
+</g>
+
+<!-- 磁盘图标 -->
+<g>
+  <rect x="182" y="196" width="74" height="34" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.7"/>
+  <rect x="190" y="204" width="16" height="8" rx="1.5" fill="#185FA5" opacity="0.35"/>
+  <text x="219" y="222" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9" fill="#042C53">ckpt @2</text>
+  <rect x="455" y="196" width="74" height="34" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.7"/>
+  <rect x="463" y="204" width="16" height="8" rx="1.5" fill="#185FA5" opacity="0.35"/>
+  <text x="492" y="222" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9" fill="#042C53">ckpt @5</text>
+</g>
+<text x="300" y="219" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">只存了 2 次，但 θ 已经被改写了 5 次</text>
+
+<!-- 底部对照 -->
+<text x="26" y="262" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#633806">更新：原地覆盖内存中的 θ　→　决定模型学得好不好（每个 step 都发生）</text>
+<text x="26" y="282" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#042C53">保存：把当时的 θ 复制到磁盘　→　只决定能否续训、能否回滚（频率可配）</text>
+<text x="26" y="304" font-family="PingFang SC, sans-serif" font-size="10" fill="#993556">所以 save_steps 设大了不会影响模型质量，但崩了就会丢进度；设小了只会占磁盘</text>
+</svg>

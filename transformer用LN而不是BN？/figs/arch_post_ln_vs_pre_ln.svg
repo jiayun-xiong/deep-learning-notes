@@ -1,0 +1,46 @@
+<svg viewBox="0 0 680 340" width="100%" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Post-LN 与 Pre-LN 结构对比</title>
+  <desc>左图为原始 Transformer 的 Post-LN 结构：残差相加之后再做 LayerNorm；右图为 GPT-2 之后主流的 Pre-LN 结构：先 LayerNorm 再进入子层，残差通路不受 LayerNorm 阻挡。</desc>
+  <defs>
+    <marker id="arrB" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#185FA5" stroke-width="1.5" stroke-linecap="round"/>
+    </marker>
+  </defs>
+
+  <text x="180" y="42" font-size="13" font-weight="500" fill="#26215C" text-anchor="middle" font-family="sans-serif">Post-LN（原始 Transformer）</text>
+  <text x="500" y="42" font-size="13" font-weight="500" fill="#26215C" text-anchor="middle" font-family="sans-serif">Pre-LN（GPT-2 之后主流）</text>
+
+  <g font-family="sans-serif">
+    <text x="180" y="80" font-size="13" fill="#2C2C2A" text-anchor="middle">x</text>
+    <line x1="180" y1="86" x2="180" y2="102" stroke="#185FA5" stroke-width="1.5" fill="none" marker-end="url(#arrB)"/>
+    <rect x="110" y="104" width="140" height="38" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+    <text x="180" y="123" font-size="13" fill="#0C447C" text-anchor="middle">Sublayer(x)</text>
+    <line x1="180" y1="142" x2="180" y2="166" stroke="#185FA5" stroke-width="1.5" fill="none" marker-end="url(#arrB)"/>
+    <circle cx="180" cy="180" r="13" fill="#CECBF6" stroke="#534AB7" stroke-width="0.5"/>
+    <text x="180" y="184" font-size="13" fill="#3C3489" text-anchor="middle">+</text>
+    <line x1="180" y1="193" x2="180" y2="212" stroke="#185FA5" stroke-width="1.5" fill="none" marker-end="url(#arrB)"/>
+    <rect x="110" y="214" width="140" height="38" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+    <text x="180" y="233" font-size="13" fill="#0F6E56" text-anchor="middle">LayerNorm</text>
+    <line x1="180" y1="252" x2="180" y2="274" stroke="#185FA5" stroke-width="1.5" fill="none" marker-end="url(#arrB)"/>
+    <text x="180" y="292" font-size="13" fill="#2C2C2A" text-anchor="middle">输出</text>
+    <path d="M 193 78 C 290 78, 308 125, 308 180 L 196 180" fill="none" stroke="#888780" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrB)"/>
+    <text x="322" y="150" font-size="12" fill="#5F5E5A">残差</text>
+
+    <text x="500" y="80" font-size="13" fill="#2C2C2A" text-anchor="middle">x</text>
+    <line x1="500" y1="86" x2="500" y2="96" stroke="#185FA5" stroke-width="1.5" fill="none" marker-end="url(#arrB)"/>
+    <rect x="430" y="98" width="140" height="38" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+    <text x="500" y="117" font-size="13" fill="#0F6E56" text-anchor="middle">LayerNorm</text>
+    <line x1="500" y1="136" x2="500" y2="152" stroke="#185FA5" stroke-width="1.5" fill="none" marker-end="url(#arrB)"/>
+    <rect x="430" y="154" width="140" height="38" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+    <text x="500" y="173" font-size="13" fill="#0C447C" text-anchor="middle">Sublayer(x)</text>
+    <line x1="500" y1="192" x2="500" y2="210" stroke="#185FA5" stroke-width="1.5" fill="none" marker-end="url(#arrB)"/>
+    <circle cx="500" cy="224" r="13" fill="#CECBF6" stroke="#534AB7" stroke-width="0.5"/>
+    <text x="500" y="228" font-size="13" fill="#3C3489" text-anchor="middle">+</text>
+    <line x1="500" y1="237" x2="500" y2="274" stroke="#185FA5" stroke-width="1.5" fill="none" marker-end="url(#arrB)"/>
+    <text x="500" y="292" font-size="13" fill="#2C2C2A" text-anchor="middle">输出</text>
+    <path d="M 513 78 C 610 78, 628 130, 628 224 L 516 224" fill="none" stroke="#888780" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrB)"/>
+    <text x="560" y="150" font-size="12" fill="#5F5E5A">残差</text>
+  </g>
+
+  <text x="40" y="322" font-size="12" fill="#444441" font-family="sans-serif">Post-LN：梯度要穿过 LN，深层训练需要 warmup　|　Pre-LN：残差通路无 LN 阻挡，深层训练更稳定</text>
+</svg>

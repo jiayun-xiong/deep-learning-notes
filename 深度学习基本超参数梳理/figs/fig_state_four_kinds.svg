@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 344" width="680" height="344" role="img">
+<title>一个 step 里变化的四类状态</title>
+<desc>参数 θ、梯度 g、优化器状态、buffer 四类对象的写入者、清空时机与作用各不相同，混淆它们是 batch 与 epoch 概念混乱的主要来源。</desc>
+
+<text x="26" y="26" font-family="PingFang SC, sans-serif" font-size="15" font-weight="600" fill="#2C2C2A">一个 step 里，有四类完全不同的东西在变</text>
+<text x="26" y="46" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">分不清这四类，"参数到底什么时候更新""为什么 loss 突然翻倍"就会反复出现</text>
+
+<!-- A 参数 -->
+<rect x="26" y="60" width="300" height="118" rx="10" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.7"/>
+<text x="42" y="84" font-family="PingFang SC, sans-serif" font-size="12.5" font-weight="600" fill="#412402">θ 参数（model.parameters）</text>
+<text x="42" y="104" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#633806">写：optimizer.step()　每步一次</text>
+<text x="42" y="124" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#633806">清：从不清空，跨 epoch 一直累积</text>
+<text x="42" y="144" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#633806">作用：模型学到的全部内容</text>
+<text x="42" y="164" font-family="PingFang SC, sans-serif" font-size="10" font-weight="600" fill="#993556">checkpoint 存的就是它（+优化器状态）</text>
+
+<!-- B 梯度 -->
+<rect x="354" y="60" width="300" height="118" rx="10" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.7"/>
+<text x="370" y="84" font-family="PingFang SC, sans-serif" font-size="12.5" font-weight="600" fill="#26215C">g 梯度（tensor.grad）</text>
+<text x="370" y="104" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#534AB7">写：loss.backward()</text>
+<text x="370" y="124" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#534AB7">清：optimizer.zero_grad()</text>
+<text x="370" y="144" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#534AB7">作用：这一次往哪儿走</text>
+<text x="370" y="164" font-family="PingFang SC, sans-serif" font-size="10" font-weight="600" fill="#993556">坑：不清就跨 batch 累加，等于偷偷放大 lr</text>
+
+<!-- C 优化器状态 -->
+<rect x="26" y="192" width="300" height="118" rx="10" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.7"/>
+<text x="42" y="216" font-family="PingFang SC, sans-serif" font-size="12.5" font-weight="600" fill="#042C53">优化器状态（Adam: m, v, t）</text>
+<text x="42" y="236" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#185FA5">写：step() 内部顺带更新</text>
+<text x="42" y="256" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#185FA5">清：换优化器 / resume 未加载时归零</text>
+<text x="42" y="276" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#185FA5">作用：一阶、二阶矩 → 每维自适应步长</text>
+<text x="42" y="296" font-family="PingFang SC, sans-serif" font-size="10" font-weight="600" fill="#993556">只存 θ 不存它，续训后 loss 会抖一段</text>
+
+<!-- D buffer -->
+<rect x="354" y="192" width="300" height="118" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.7"/>
+<text x="370" y="216" font-family="PingFang SC, sans-serif" font-size="12.5" font-weight="600" fill="#04342C">Buffer：running 统计量、RNG</text>
+<text x="370" y="236" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#0F6E56">写：每次 forward（训练态，如 BN 的 μ_run）</text>
+<text x="370" y="256" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#0F6E56">不在 θ 里、不参与梯度</text>
+<text x="370" y="276" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#0F6E56">作用：决定 eval 时的行为</text>
+<text x="370" y="296" font-family="PingFang SC, sans-serif" font-size="10" font-weight="600" fill="#993556">忘了存它，eval 指标会莫名其妙变差</text>
+
+<text x="340" y="332" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">记忆抓手：θ 是"学到的东西"，g 是"这一步的方向"，优化器状态是"历史"，buffer 是"统计与随机性"</text>
+</svg>

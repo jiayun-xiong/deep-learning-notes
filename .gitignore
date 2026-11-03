@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+
+# 本地渲染工具链（MathJax 依赖，体积大）
+.tools/
+
+# 发布用中间产物：PDF 逐页导出图
+pdf-pages/
+
+# 封面图与素材原图
+封面*
+图片素材/
+IMG_*.JPG
+
+# 其他非笔记正文产出
+*.html
+*.ipynb

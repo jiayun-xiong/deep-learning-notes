@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 702" width="680" height="702" role="img">
+<title>Transformer 的整机结构：编码器栈与解码器栈</title>
+<desc>源语言句子经词嵌入乘根号 d_model 再加位置编码进入 6 层编码器；编码器输出被 6 个解码器层反复使用，作为交叉注意力的 K 和 V。解码器每层依次是掩码自注意力、交叉注意力和前馈网络；最末经线性层与 softmax 得到下一个词的概率。</desc>
+<defs>
+<marker id="ar1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+</defs>
+
+<text x="24" y="26" font-family="PingFang SC, sans-serif" font-size="14" font-weight="500" fill="#2C2C2A">Transformer 的整机结构</text>
+<text x="24" y="46" font-family="PingFang SC, sans-serif" font-size="11.5" fill="#5F5E5A">编码器把源句读成一个矩阵、只跑一遍；解码器拿着这份输出逐词往外写，两栈之间靠交叉注意力搭桥</text>
+
+<text x="170" y="76" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12.5" font-weight="500" fill="#0C447C">编码器 × 6</text>
+<text x="510" y="76" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12.5" font-weight="500" fill="#3C3489">解码器 × 6</text>
+
+<rect x="60" y="88" width="220" height="32" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+<text x="170" y="108" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" fill="#2C2C2A">源语言句子</text>
+<rect x="400" y="88" width="220" height="32" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+<text x="510" y="108" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" fill="#2C2C2A">已生成的译文（右移一位）</text>
+
+<line x1="170" y1="120" x2="170" y2="130" stroke="#888780" stroke-width="1.2" marker-end="url(#ar1)"/>
+<line x1="510" y1="120" x2="510" y2="130" stroke="#888780" stroke-width="1.2" marker-end="url(#ar1)"/>
+
+<rect x="60" y="134" width="220" height="44" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="170" y="152" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" font-weight="500" fill="#0C447C">词嵌入 × √d_model</text>
+<text x="170" y="168" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#185FA5">再加位置编码</text>
+<rect x="400" y="134" width="220" height="44" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="510" y="152" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" font-weight="500" fill="#3C3489">词嵌入 × √d_model</text>
+<text x="510" y="168" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#534AB7">再加位置编码</text>
+
+<line x1="170" y1="178" x2="170" y2="188" stroke="#888780" stroke-width="1.2" marker-end="url(#ar1)"/>
+<line x1="510" y1="178" x2="510" y2="188" stroke="#888780" stroke-width="1.2" marker-end="url(#ar1)"/>
+
+<rect x="60" y="192" width="220" height="236" rx="16" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<rect x="72" y="216" width="196" height="52" rx="8" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.5"/>
+<text x="170" y="236" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" font-weight="500" fill="#0C447C">多头自注意力</text>
+<text x="170" y="253" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#185FA5">双向，无掩码</text>
+<rect x="72" y="276" width="196" height="28" rx="6" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+<text x="170" y="294" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11.5" fill="#2C2C2A">Add &amp; Norm</text>
+<rect x="72" y="312" width="196" height="52" rx="8" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.5"/>
+<text x="170" y="332" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" font-weight="500" fill="#0C447C">前馈网络</text>
+<text x="170" y="349" text-anchor="middle" font-family="Menlo, monospace" font-size="10.5" fill="#185FA5">512 → 2048 → 512</text>
+<rect x="72" y="372" width="196" height="28" rx="6" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+<text x="170" y="390" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11.5" fill="#2C2C2A">Add &amp; Norm</text>
+
+<rect x="400" y="192" width="220" height="326" rx="16" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<rect x="412" y="216" width="196" height="52" rx="8" fill="#CECBF6" stroke="#534AB7" stroke-width="0.5"/>
+<text x="510" y="236" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" font-weight="500" fill="#3C3489">掩码多头自注意力</text>
+<text x="510" y="253" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#534AB7">只看 j ≤ i</text>
+<rect x="412" y="276" width="196" height="28" rx="6" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+<text x="510" y="294" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11.5" fill="#2C2C2A">Add &amp; Norm</text>
+<rect x="412" y="312" width="196" height="52" rx="8" fill="#CECBF6" stroke="#534AB7" stroke-width="0.5"/>
+<text x="510" y="332" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" font-weight="500" fill="#3C3489">交叉注意力</text>
+<text x="510" y="349" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#534AB7">Q 来自解码器，K/V 来自编码器</text>
+<rect x="412" y="372" width="196" height="28" rx="6" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+<text x="510" y="390" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11.5" fill="#2C2C2A">Add &amp; Norm</text>
+<rect x="412" y="408" width="196" height="52" rx="8" fill="#CECBF6" stroke="#534AB7" stroke-width="0.5"/>
+<text x="510" y="428" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" font-weight="500" fill="#3C3489">前馈网络</text>
+<text x="510" y="445" text-anchor="middle" font-family="Menlo, monospace" font-size="10.5" fill="#534AB7">512 → 2048 → 512</text>
+<rect x="412" y="468" width="196" height="28" rx="6" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+<text x="510" y="486" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11.5" fill="#2C2C2A">Add &amp; Norm</text>
+
+<rect x="60" y="440" width="220" height="34" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+<text x="170" y="461" text-anchor="middle" font-family="Menlo, monospace" font-size="11.5" fill="#2C2C2A">编码器输出 H⁶　n × 512</text>
+<line x1="170" y1="428" x2="170" y2="438" stroke="#888780" stroke-width="1.2" marker-end="url(#ar1)"/>
+
+<path d="M170 474 L170 496 L330 496 L330 338 L392 338" fill="none" stroke="#888780" stroke-width="1.2" marker-end="url(#ar1)"/>
+<text x="338" y="328" font-family="Menlo, monospace" font-size="10.5" fill="#5F5E5A">K / V</text>
+
+<line x1="510" y1="518" x2="510" y2="528" stroke="#888780" stroke-width="1.2" marker-end="url(#ar1)"/>
+<rect x="400" y="530" width="220" height="42" rx="8" fill="#FFFFFF" stroke="#B4B2A9" stroke-width="0.5"/>
+<text x="510" y="547" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" font-weight="500" fill="#2C2C2A">线性层</text>
+<text x="510" y="563" text-anchor="middle" font-family="Menlo, monospace" font-size="10.5" fill="#5F5E5A">512 → 37000</text>
+
+<line x1="510" y1="572" x2="510" y2="584" stroke="#888780" stroke-width="1.2" marker-end="url(#ar1)"/>
+<rect x="400" y="586" width="220" height="38" rx="8" fill="#FFFFFF" stroke="#B4B2A9" stroke-width="0.5"/>
+<text x="510" y="610" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" font-weight="500" fill="#2C2C2A">Softmax</text>
+
+<line x1="510" y1="624" x2="510" y2="634" stroke="#888780" stroke-width="1.2" marker-end="url(#ar1)"/>
+<text x="510" y="650" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11.5" fill="#5F5E5A">下一个词的概率分布</text>
+
+<text x="24" y="690" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#888780">注：两栈各 6 层，层与层之间参数不共享；编码器输出 H⁶ 被 6 个解码器层反复使用，不是每层喂一份新的</text>
+</svg>
