@@ -30,10 +30,12 @@
 | transformer 用 LN 而不是 BN？ | [md](transformer用LN而不是BN？/为什么用LayerNorm而不是BatchNorm.md) | [pdf](transformer用LN而不是BN？/为什么用LayerNorm而不是BatchNorm.pdf) | 归一化方向对比、逐步数值例子，以及 Transformer 选 LN 的真正原因 |
 | Post-LN 与 Pre-LN | [md](Post-LN与Pre-LN原理/Post-LN%20与%20Pre-LN%20结构详解.md) | [pdf](Post-LN与Pre-LN原理/Post-LN%20与%20Pre-LN%20结构详解.pdf) | 两种残差摆放位置带来的梯度路径差异，以及 warmup 的由来 |
 | ROC 与 PR 曲线 | [md](ROC与PR曲线核心原理/ROC与PR曲线核心原理.md) | — | 阈值扫描、AUC 的几何含义，附一个可运行的 [notebook](ROC与PR曲线核心原理/roc_pr_curve_demo.ipynb) |
+| 绝对位置编码 | [md](绝对位置编码/绝对位置编码.md) | [pdf](绝对位置编码/绝对位置编码.pdf) | 正弦编码为什么能当位置指纹，以及加法注入为什么保不住相对性 |
+| 旋转位置编码 RoPE | [md](旋转位置编码RoPE/旋转位置编码RoPE.md) | [pdf](旋转位置编码RoPE/旋转位置编码RoPE.pdf) | 用旋转把相对位置内建进打分：一行恒等式、切平面、KV cache 与实现 |
 
 ## 还在学习和整理中
 
-自注意力机制、Transformer 整体架构、旋转位置编码 RoPE —— 这几篇已经在写了，等自己看着满意再放上来。宁可慢一点，也不想把半成品当成结论。目前准备明年找 agent 实习，后续会更新 agent 学习笔记。
+自注意力机制、Transformer 整体架构 —— 这几篇已经在写了，等自己看着满意再放上来。宁可慢一点，也不想把半成品当成结论。目前准备明年找 agent 实习，后续会更新 agent 学习笔记。
 
 ## 一点说明
 
