@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 360" width="680" height="360" role="img">
+<title>粒度权衡：字符级与词级</title>
+<desc>字符级词表小但序列长；词级序列短但词表没有上界且怕未登录词；子词级在两者之间。</desc>
+<defs>
+<marker id="ar3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+</defs>
+
+<text x="24" y="26" font-family="PingFang SC, sans-serif" font-size="14" font-weight="500" fill="#2C2C2A">粒度权衡：字符级 vs 词级</text>
+<text x="24" y="46" font-family="PingFang SC, sans-serif" font-size="11.5" fill="#5F5E5A">所有 Tokenizer 都在这根轴上选一个点：V 多大，L 多长</text>
+
+<line x1="40" y1="84" x2="636" y2="84" stroke="#888780" stroke-width="1.2" marker-end="url(#ar3)"/>
+<text x="40" y="106" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">V 小、L 长</text>
+<text x="640" y="106" text-anchor="end" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">V 大、L 短</text>
+
+<rect x="24" y="122" width="196" height="112" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+<text x="40" y="146" font-family="PingFang SC, sans-serif" font-size="12.5" font-weight="500" fill="#2C2C2A">字符级</text>
+<text x="40" y="168" font-family="PingFang SC, sans-serif" font-size="11" fill="#2C2C2A">V = 几千</text>
+<text x="40" y="188" font-family="PingFang SC, sans-serif" font-size="11" fill="#2C2C2A">L 暴涨</text>
+<text x="40" y="208" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">单个字符几乎不</text>
+<text x="40" y="224" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">携带语义</text>
+
+<rect x="242" y="122" width="196" height="112" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="258" y="146" font-family="PingFang SC, sans-serif" font-size="12.5" font-weight="500" fill="#0C447C">子词级（BPE）</text>
+<text x="258" y="168" font-family="PingFang SC, sans-serif" font-size="11" fill="#0C447C">V = 37k – 152k</text>
+<text x="258" y="188" font-family="PingFang SC, sans-serif" font-size="11" fill="#0C447C">L 适中</text>
+<text x="258" y="208" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#185FA5">无 OOV：新词由已</text>
+<text x="258" y="224" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#185FA5">知碎片拼成</text>
+
+<rect x="460" y="122" width="196" height="112" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+<text x="476" y="146" font-family="PingFang SC, sans-serif" font-size="12.5" font-weight="500" fill="#2C2C2A">词级</text>
+<text x="476" y="168" font-family="PingFang SC, sans-serif" font-size="11" fill="#2C2C2A">V 没有上界</text>
+<text x="476" y="188" font-family="PingFang SC, sans-serif" font-size="11" fill="#2C2C2A">L 最短</text>
+<text x="476" y="208" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">每个没见过的词</text>
+<text x="476" y="224" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">都是 OOV 空洞</text>
+
+<rect x="24" y="256" width="304" height="76" rx="8" fill="#FFFFFF" stroke="#888780" stroke-width="0.5"/>
+<text x="40" y="282" font-family="PingFang SC, sans-serif" font-size="11.5" font-weight="500" fill="#2C2C2A">Attention 的计算成本</text>
+<svg x="200.0" y="270.0" width="36.5" height="15.4" viewBox="0 0 3045 1283"><g fill="currentColor" stroke-width="0" transform="translate(0 999.5) scale(1,-1)"><g data-mml-node="math"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="4F" d="M308 428Q289 428 289 438Q289 457 318 508T378 593Q417 638 475 671T599 705Q688 705 732 643T777 483Q777 380 733 285T620 123T464 18T293 -22Q188 -22 123 51T58 245Q58 327 87 403T159 533T249 626T333 685T388 705Q404 705 404 693Q404 674 363 649Q333 632 304 606T239 537T181 429T158 290Q158 179 214 114T364 48Q489 48 583 165T677 438Q677 473 670 505T648 568T601 617T528 636Q518 636 513 635Q486 629 460 600T419 544T392 490Q383 470 372 459Q341 430 308 428Z"></path></g></g><g data-mml-node="mo" transform="translate(796,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msup" transform="translate(1185,0)"><g data-mml-node="mi"><path data-c="1D43F" d="M228 637Q194 637 192 641Q191 643 191 649Q191 673 202 682Q204 683 217 683Q271 680 344 680Q485 680 506 683H518Q524 677 524 674T522 656Q517 641 513 637H475Q406 636 394 628Q387 624 380 600T313 336Q297 271 279 198T252 88L243 52Q243 48 252 48T311 46H328Q360 46 379 47T428 54T478 72T522 106T564 161Q580 191 594 228T611 270Q616 273 628 273H641Q647 264 647 262T627 203T583 83T557 9Q555 4 553 3T537 0T494 -1Q483 -1 418 -1T294 0H116Q32 0 32 10Q32 17 34 24Q39 43 44 45Q48 46 59 46H65Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Q285 635 228 637Z"></path></g><g data-mml-node="TeXAtom" transform="translate(714,413) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g></g><g data-mml-node="mo" transform="translate(2302.6,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg>
+<text x="40" y="308" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">11 × 11 = 121 vs 6 × 6 = 36：3.4 倍计算量</text>
+
+<rect x="352" y="256" width="304" height="76" rx="8" fill="#FFFFFF" stroke="#888780" stroke-width="0.5"/>
+<text x="368" y="282" font-family="PingFang SC, sans-serif" font-size="11.5" font-weight="500" fill="#2C2C2A">Embedding 的参数量</text>
+<svg x="540.0" y="272.6" width="34.1" height="9.7" viewBox="0 0 2841 810"><g fill="currentColor" stroke-width="0" transform="translate(0 785.0) scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D449" d="M52 648Q52 670 65 683H76Q118 680 181 680Q299 680 320 683H330Q336 677 336 674T334 656Q329 641 325 637H304Q282 635 274 635Q245 630 242 620Q242 618 271 369T301 118L374 235Q447 352 520 471T595 594Q599 601 599 609Q599 633 555 637Q537 637 537 648Q537 649 539 661Q542 675 545 679T558 683Q560 683 570 683T604 682T668 681Q737 681 755 683H762Q769 676 769 672Q769 655 760 640Q757 637 743 637Q730 636 719 635T698 630T682 623T670 615T660 608T652 599T645 592L452 282Q272 -9 266 -16Q263 -18 259 -21L241 -22H234Q216 -22 216 -15Q213 -9 177 305Q139 623 138 626Q133 637 76 637H59Q52 642 52 648Z"></path></g><g data-mml-node="mo" transform="translate(991.2,0)"><path data-c="D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path></g><g data-mml-node="mi" transform="translate(1991.4,0)"><path data-c="1D451" d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g></g></g></svg>
+<text x="368" y="308" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">37k × 512 ≈ 1900 万 · 128k × 4096 ≈ 5.2 亿</text>
+</svg>

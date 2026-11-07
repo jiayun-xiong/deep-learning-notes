@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 430" width="680" height="430" role="img">
+<title>BPE：词表从语料统计里学出来</title>
+<desc>示例语料给出四个词的频次；BPE 每次合并出现次数最多的相邻对，每合并一次词表多一项；低频字从未被合并，仍是一个 token。</desc>
+<defs>
+<marker id="ar2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+</defs>
+
+<text x="24" y="26" font-family="PingFang SC, sans-serif" font-size="14" font-weight="500" fill="#2C2C2A">BPE：词表是从语料统计里学出来的</text>
+<text x="24" y="46" font-family="PingFang SC, sans-serif" font-size="11.5" fill="#5F5E5A">从单个字符出发，反复合并出现次数最多的相邻对</text>
+
+<rect x="24" y="70" width="290" height="210" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+<text x="40" y="94" font-family="PingFang SC, sans-serif" font-size="12" font-weight="500" fill="#2C2C2A">示例语料与词频</text>
+
+<rect x="40" y="112" width="24" height="24" rx="4" fill="#FFFFFF" stroke="#888780" stroke-width="0.5"/>
+<text x="52" y="129" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" fill="#2C2C2A">吸</text>
+<rect x="68" y="112" width="24" height="24" rx="4" fill="#FFFFFF" stroke="#888780" stroke-width="0.5"/>
+<text x="80" y="129" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" fill="#2C2C2A">引</text>
+<text x="104" y="129" font-family="PingFang SC, sans-serif" font-size="11" fill="#5F5E5A">× 120</text>
+
+<rect x="40" y="146" width="24" height="24" rx="4" fill="#FFFFFF" stroke="#888780" stroke-width="0.5"/>
+<text x="52" y="163" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" fill="#2C2C2A">学</text>
+<rect x="68" y="146" width="24" height="24" rx="4" fill="#FFFFFF" stroke="#888780" stroke-width="0.5"/>
+<text x="80" y="163" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" fill="#2C2C2A">生</text>
+<text x="104" y="163" font-family="PingFang SC, sans-serif" font-size="11" fill="#5F5E5A">× 95</text>
+
+<rect x="40" y="180" width="24" height="24" rx="4" fill="#FFFFFF" stroke="#888780" stroke-width="0.5"/>
+<text x="52" y="197" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" fill="#2C2C2A">实</text>
+<rect x="68" y="180" width="24" height="24" rx="4" fill="#FFFFFF" stroke="#888780" stroke-width="0.5"/>
+<text x="80" y="197" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" fill="#2C2C2A">习</text>
+<text x="104" y="197" font-family="PingFang SC, sans-serif" font-size="11" fill="#5F5E5A">× 80</text>
+
+<rect x="40" y="214" width="24" height="24" rx="4" fill="#FFFFFF" stroke="#888780" stroke-width="0.5"/>
+<text x="52" y="231" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" fill="#2C2C2A">报</text>
+<rect x="68" y="214" width="24" height="24" rx="4" fill="#FFFFFF" stroke="#888780" stroke-width="0.5"/>
+<text x="80" y="231" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" fill="#2C2C2A">考</text>
+<text x="104" y="231" font-family="PingFang SC, sans-serif" font-size="11" fill="#5F5E5A">× 60</text>
+
+<text x="40" y="258" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">低频：科 / 软 / 放 只出现几次</text>
+
+<rect x="352" y="70" width="304" height="210" rx="8" fill="#FFFFFF" stroke="#888780" stroke-width="0.5"/>
+<text x="368" y="94" font-family="PingFang SC, sans-serif" font-size="12" font-weight="500" fill="#2C2C2A">合并日志</text>
+
+<text x="368" y="130" font-family="PingFang SC, sans-serif" font-size="11.5" fill="#2C2C2A">1  (吸|引) ×120</text>
+<rect x="512" y="114" width="60" height="24" rx="5" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.5"/>
+<text x="542" y="131" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" fill="#04342C">吸引</text>
+<text x="586" y="131" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#1D9E75">V + 1</text>
+
+<text x="368" y="166" font-family="PingFang SC, sans-serif" font-size="11.5" fill="#2C2C2A">2  (学|生) ×95</text>
+<rect x="512" y="150" width="60" height="24" rx="5" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.5"/>
+<text x="542" y="167" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" fill="#04342C">学生</text>
+<text x="586" y="167" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#1D9E75">V + 1</text>
+
+<text x="368" y="202" font-family="PingFang SC, sans-serif" font-size="11.5" fill="#2C2C2A">3  (实|习) ×80</text>
+<rect x="512" y="186" width="60" height="24" rx="5" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.5"/>
+<text x="542" y="203" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" fill="#04342C">实习</text>
+<text x="586" y="203" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#1D9E75">V + 1</text>
+
+<text x="368" y="238" font-family="PingFang SC, sans-serif" font-size="11.5" fill="#2C2C2A">4  (报|考) ×60</text>
+<rect x="512" y="222" width="60" height="24" rx="5" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.5"/>
+<text x="542" y="239" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" fill="#04342C">报考</text>
+<text x="586" y="239" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#1D9E75">V + 1</text>
+
+<text x="368" y="266" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">词表达到目标大小即停止</text>
+
+<rect x="24" y="296" width="290" height="64" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="40" y="320" font-family="PingFang SC, sans-serif" font-size="11.5" font-weight="500" fill="#0C447C">高频相邻对合并成一个 token</text>
+<text x="40" y="339" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#185FA5">一次合并 = 词表多一项</text>
+
+<rect x="352" y="296" width="304" height="64" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="368" y="320" font-family="PingFang SC, sans-serif" font-size="11.5" font-weight="500" fill="#3C3489">低频字保持拆分</text>
+<text x="368" y="339" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#534AB7">从未被合并：科 / 软 各自一个 token</text>
+
+<text x="340" y="396" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" fill="#2C2C2A">同一句话：这 4 次合并后是 7 个 token，没有它们则是 11 个</text>
+</svg>
