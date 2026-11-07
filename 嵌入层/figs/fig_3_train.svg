@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 400" width="680" height="400" role="img">
+<title>训练如何把词向量拉向它的语境方向</title>
+<desc>同一个词在不同句子里被拉向不同方向，训练结束后停在所有语境的累积方向上；语境分布相似的两个词，累积方向接近，坐标因此靠近。</desc>
+<defs>
+<marker id="arB" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M2 1L8 5L2 9" fill="none" stroke="#185FA5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+<marker id="arL" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M2 1L8 5L2 9" fill="none" stroke="#BBD9F5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+</defs>
+
+<text x="24" y="26" font-family="PingFang SC, sans-serif" font-size="14" font-weight="500" fill="#2C2C2A">词向量的坐标，是它全部语境的累积方向</text>
+<text x="24" y="46" font-family="PingFang SC, sans-serif" font-size="11.5" fill="#5F5E5A">「报考」每出现在一句里，就被这句话的语境拉一下；读过的句子越多，这个方向越稳</text>
+
+<rect x="24" y="68" width="300" height="252" rx="8" fill="#FFFFFF" stroke="#888780" stroke-width="0.5"/>
+<text x="40" y="94" font-family="PingFang SC, sans-serif" font-size="12" font-weight="500" fill="#2C2C2A">同一个词，三种语境</text>
+
+<text x="40" y="124" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">实习 · 学生 · 专业 → 报考</text>
+<line x1="40" y1="134" x2="308" y2="134" stroke="#E3E1D8" stroke-width="0.8"/>
+<text x="40" y="154" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">招生 · 名额 · 分数 → 报考</text>
+<line x1="40" y1="164" x2="308" y2="164" stroke="#E3E1D8" stroke-width="0.8"/>
+<text x="40" y="184" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">报名 · 考试 · 录取 → 报考</text>
+
+<text x="40" y="216" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#2C2C2A">三次出现的语境不同</text>
+<text x="40" y="234" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#2C2C2A">拉力方向也就不同</text>
+<text x="40" y="264" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#185FA5">拉它的不是「报考」这两个字</text>
+<text x="40" y="282" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#185FA5">而是这一句的语境表示 h</text>
+<text x="40" y="306" font-family="PingFang SC, sans-serif" font-size="10" fill="#888780">词义 = 它出现过的语境的分布</text>
+
+<rect x="340" y="68" width="316" height="252" rx="8" fill="#FFFFFF" stroke="#888780" stroke-width="0.5"/>
+<text x="356" y="94" font-family="PingFang SC, sans-serif" font-size="12" font-weight="500" fill="#2C2C2A">三次拉力合成一个方向</text>
+
+<line x1="392" y1="286" x2="644" y2="286" stroke="#B9B7AE" stroke-width="1"/>
+<line x1="400" y1="286" x2="400" y2="108" stroke="#B9B7AE" stroke-width="1"/>
+<circle cx="400" cy="286" r="2.5" fill="#5F5E5A"/>
+
+<line x1="400" y1="286" x2="503" y2="247" stroke="#BBD9F5" stroke-width="1.5" marker-end="url(#arL)"/>
+<line x1="400" y1="286" x2="445" y2="207" stroke="#BBD9F5" stroke-width="1.5" marker-end="url(#arL)"/>
+<line x1="400" y1="286" x2="474" y2="230" stroke="#BBD9F5" stroke-width="1.5" marker-end="url(#arL)"/>
+
+<line x1="503" y1="247" x2="551" y2="193" stroke="#185FA5" stroke-width="0.8" stroke-dasharray="3 2"/>
+<line x1="445" y1="207" x2="551" y2="193" stroke="#185FA5" stroke-width="0.8" stroke-dasharray="3 2"/>
+<line x1="474" y1="230" x2="551" y2="193" stroke="#185FA5" stroke-width="0.8" stroke-dasharray="3 2"/>
+
+<line x1="400" y1="286" x2="551" y2="193" stroke="#0C447C" stroke-width="2" marker-end="url(#arB)"/>
+
+<text x="506" y="260" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#185FA5">h₁</text>
+<text x="434" y="202" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#185FA5">h₂</text>
+<text x="466" y="226" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#185FA5">h₃</text>
+<text x="556" y="188" font-family="PingFang SC, sans-serif" font-size="10.5" font-weight="500" fill="#0C447C">累积方向</text>
+<text x="556" y="204" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">= 词的坐标</text>
+
+<text x="356" y="306" font-family="PingFang SC, sans-serif" font-size="10" fill="#888780">语境越杂，方向越"居中"；语境越单一，方向越尖</text>
+
+<text x="24" y="344" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">真实训练里每个词被拉几十万到几十亿次，图示只画了三次；「合成」严格说是这些方向的累积，近似看作平均。</text>
+<text x="24" y="366" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#185FA5">语境分布相似 → 累积方向相似 → 坐标靠近：苹果与梨的余弦 0.98 就是这么来的。</text>
+</svg>

@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 440" width="680" height="440" role="img">
+<title>查表等于 one-hot 乘矩阵，以及由此得到的稀疏梯度</title>
+<desc>one-hot 向量乘嵌入矩阵等于取出对应行；反向传播时梯度只在被取到的行上非零。</desc>
+<defs>
+<marker id="ar2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M2 1L8 5L2 9" fill="none" stroke="#185FA5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+</defs>
+
+<text x="24" y="26" font-family="PingFang SC, sans-serif" font-size="14" font-weight="500" fill="#2C2C2A">查表 = one-hot 乘矩阵 = 取第 i 行</text>
+<text x="24" y="46" font-family="PingFang SC, sans-serif" font-size="11.5" fill="#5F5E5A">实现上是索引，数学上是乘法；两种说法等价，梯度的稀疏性就从这里算出来</text>
+
+<text x="66" y="86" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">one-hot</text>
+
+<rect x="44" y="94" width="44" height="140" fill="#FAFAF7" stroke="#888780" stroke-width="0.6"/>
+<line x1="44" y1="108" x2="88" y2="108" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="44" y1="122" x2="88" y2="122" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="44" y1="136" x2="88" y2="136" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="44" y1="150" x2="88" y2="150" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="44" y1="164" x2="88" y2="164" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="44" y1="178" x2="88" y2="178" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="44" y1="192" x2="88" y2="192" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="44" y1="206" x2="88" y2="206" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="44" y1="220" x2="88" y2="220" stroke="#E3E1D8" stroke-width="0.5"/>
+<rect x="44" y="150" width="44" height="14" fill="#BBD9F5" stroke="#185FA5" stroke-width="0.6"/>
+<text x="66" y="161" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9" font-weight="500" fill="#0C447C">1</text>
+<text x="66" y="119" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="8.5" fill="#B9B7AE">0</text>
+<text x="66" y="133" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="8.5" fill="#B9B7AE">0</text>
+<text x="66" y="147" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="8.5" fill="#B9B7AE">0</text>
+<text x="66" y="175" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="8.5" fill="#B9B7AE">0</text>
+<text x="66" y="189" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="8.5" fill="#B9B7AE">0</text>
+<text x="66" y="203" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="8.5" fill="#B9B7AE">0</text>
+<text x="66" y="217" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="8.5" fill="#B9B7AE">0</text>
+<text x="66" y="231" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="8.5" fill="#B9B7AE">0</text>
+<text x="66" y="252" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">V 维</text>
+
+<text x="100" y="170" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="15" fill="#5F5E5A">×</text>
+
+<text x="124" y="86" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">嵌入矩阵 E</text>
+<rect x="124" y="94" width="196" height="140" fill="#FAFAF7" stroke="#888780" stroke-width="0.6"/>
+<line x1="124" y1="108" x2="320" y2="108" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="124" y1="122" x2="320" y2="122" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="124" y1="136" x2="320" y2="136" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="124" y1="150" x2="320" y2="150" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="124" y1="164" x2="320" y2="164" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="124" y1="178" x2="320" y2="178" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="124" y1="192" x2="320" y2="192" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="124" y1="206" x2="320" y2="206" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="124" y1="220" x2="320" y2="220" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="152" y1="94" x2="152" y2="234" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="180" y1="94" x2="180" y2="234" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="208" y1="94" x2="208" y2="234" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="236" y1="94" x2="236" y2="234" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="264" y1="94" x2="264" y2="234" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="292" y1="94" x2="292" y2="234" stroke="#E3E1D8" stroke-width="0.5"/>
+<rect x="124" y="150" width="196" height="14" fill="#BBD9F5" stroke="#185FA5" stroke-width="0.6"/>
+<text x="124" y="252" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">V 行（一个 token 一行）× d 列</text>
+
+<text x="336" y="170" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="15" fill="#5F5E5A">=</text>
+
+<text x="358" y="142" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#185FA5">取出的这一行</text>
+<rect x="358" y="150" width="196" height="14" fill="#BBD9F5" stroke="#185FA5" stroke-width="0.6"/>
+<line x1="386" y1="150" x2="386" y2="164" stroke="#185FA5" stroke-width="0.5"/>
+<line x1="414" y1="150" x2="414" y2="164" stroke="#185FA5" stroke-width="0.5"/>
+<line x1="442" y1="150" x2="442" y2="164" stroke="#185FA5" stroke-width="0.5"/>
+<line x1="470" y1="150" x2="470" y2="164" stroke="#185FA5" stroke-width="0.5"/>
+<line x1="498" y1="150" x2="498" y2="164" stroke="#185FA5" stroke-width="0.5"/>
+<line x1="526" y1="150" x2="526" y2="164" stroke="#185FA5" stroke-width="0.5"/>
+<text x="358" y="184" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">d 维，形状 1 × d</text>
+<text x="358" y="206" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">其余 V − 1 行完全不动</text>
+
+<line x1="24" y1="270" x2="656" y2="270" stroke="#E3E1D8" stroke-width="1"/>
+
+<text x="24" y="292" font-family="PingFang SC, sans-serif" font-size="11.5" font-weight="500" fill="#2C2C2A">反向传播时，梯度长什么样</text>
+<svg x="24.0" y="297.7" width="113.9" height="38.2" viewBox="0 0 8760 2940"><g fill="currentColor" stroke-width="0" transform="translate(0 1865.5) scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mfrac"><g data-mml-node="mrow" transform="translate(261.5,676)"><g data-mml-node="mi"><path data-c="1D715" d="M202 508Q179 508 169 520T158 547Q158 557 164 577T185 624T230 675T301 710L333 715H345Q378 715 384 714Q447 703 489 661T549 568T566 457Q566 362 519 240T402 53Q321 -22 223 -22Q123 -22 73 56Q42 102 42 148V159Q42 276 129 370T322 465Q383 465 414 434T455 367L458 378Q478 461 478 515Q478 603 437 639T344 676Q266 676 223 612Q264 606 264 572Q264 547 246 528T202 508ZM430 306Q430 372 401 400T333 428Q270 428 222 382Q197 354 183 323T150 221Q132 149 132 116Q132 21 232 21Q244 21 250 22Q327 35 374 112Q389 137 409 196T430 306Z"></path></g><g data-mml-node="mi" transform="translate(566,0)"><path data-c="1D43F" d="M228 637Q194 637 192 641Q191 643 191 649Q191 673 202 682Q204 683 217 683Q271 680 344 680Q485 680 506 683H518Q524 677 524 674T522 656Q517 641 513 637H475Q406 636 394 628Q387 624 380 600T313 336Q297 271 279 198T252 88L243 52Q243 48 252 48T311 46H328Q360 46 379 47T428 54T478 72T522 106T564 161Q580 191 594 228T611 270Q616 273 628 273H641Q647 264 647 262T627 203T583 83T557 9Q555 4 553 3T537 0T494 -1Q483 -1 418 -1T294 0H116Q32 0 32 10Q32 17 34 24Q39 43 44 45Q48 46 59 46H65Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Q285 635 228 637Z"></path></g></g><g data-mml-node="mrow" transform="translate(220,-686)"><g data-mml-node="mi"><path data-c="1D715" d="M202 508Q179 508 169 520T158 547Q158 557 164 577T185 624T230 675T301 710L333 715H345Q378 715 384 714Q447 703 489 661T549 568T566 457Q566 362 519 240T402 53Q321 -22 223 -22Q123 -22 73 56Q42 102 42 148V159Q42 276 129 370T322 465Q383 465 414 434T455 367L458 378Q478 461 478 515Q478 603 437 639T344 676Q266 676 223 612Q264 606 264 572Q264 547 246 528T202 508ZM430 306Q430 372 401 400T333 428Q270 428 222 382Q197 354 183 323T150 221Q132 149 132 116Q132 21 232 21Q244 21 250 22Q327 35 374 112Q389 137 409 196T430 306Z"></path></g><g data-mml-node="mi" transform="translate(566,0)"><path data-c="1D438" d="M492 213Q472 213 472 226Q472 230 477 250T482 285Q482 316 461 323T364 330H312Q311 328 277 192T243 52Q243 48 254 48T334 46Q428 46 458 48T518 61Q567 77 599 117T670 248Q680 270 683 272Q690 274 698 274Q718 274 718 261Q613 7 608 2Q605 0 322 0H133Q31 0 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q146 66 215 342T285 622Q285 629 281 629Q273 632 228 634H197Q191 640 191 642T193 659Q197 676 203 680H757Q764 676 764 669Q764 664 751 557T737 447Q735 440 717 440H705Q698 445 698 453L701 476Q704 500 704 528Q704 558 697 578T678 609T643 625T596 632T532 634H485Q397 633 392 631Q388 629 386 622Q385 619 355 499T324 377Q347 376 372 376H398Q464 376 489 391T534 472Q538 488 540 490T557 493Q562 493 565 493T570 492T572 491T574 487T577 483L544 351Q511 218 508 216Q505 213 492 213Z"></path></g></g><rect width="1530" height="60" x="120" y="220"></rect></g><g data-mml-node="mo" transform="translate(2047.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="msub" transform="translate(3103.6,0)"><g data-mml-node="mi"><path data-c="1D452" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path></g><g data-mml-node="mi" transform="translate(499,-150) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g><g data-mml-node="msup" transform="translate(3896.5,0)"><g data-mml-node="mrow"><g data-mml-node="mo" transform="translate(0 -0.5)"><path data-c="28" d="M701 -940Q701 -943 695 -949H664Q662 -947 636 -922T591 -879T537 -818T475 -737T412 -636T350 -511T295 -362T250 -186T221 17T209 251Q209 962 573 1361Q596 1386 616 1405T649 1437T664 1450H695Q701 1444 701 1441Q701 1436 681 1415T629 1356T557 1261T476 1118T400 927T340 675T308 359Q306 321 306 250Q306 -139 400 -430T690 -924Q701 -936 701 -940Z"></path></g><g data-mml-node="mfrac" transform="translate(736,0)"><g data-mml-node="mrow" transform="translate(331,676)"><g data-mml-node="mi"><path data-c="1D715" d="M202 508Q179 508 169 520T158 547Q158 557 164 577T185 624T230 675T301 710L333 715H345Q378 715 384 714Q447 703 489 661T549 568T566 457Q566 362 519 240T402 53Q321 -22 223 -22Q123 -22 73 56Q42 102 42 148V159Q42 276 129 370T322 465Q383 465 414 434T455 367L458 378Q478 461 478 515Q478 603 437 639T344 676Q266 676 223 612Q264 606 264 572Q264 547 246 528T202 508ZM430 306Q430 372 401 400T333 428Q270 428 222 382Q197 354 183 323T150 221Q132 149 132 116Q132 21 232 21Q244 21 250 22Q327 35 374 112Q389 137 409 196T430 306Z"></path></g><g data-mml-node="mi" transform="translate(566,0)"><path data-c="1D43F" d="M228 637Q194 637 192 641Q191 643 191 649Q191 673 202 682Q204 683 217 683Q271 680 344 680Q485 680 506 683H518Q524 677 524 674T522 656Q517 641 513 637H475Q406 636 394 628Q387 624 380 600T313 336Q297 271 279 198T252 88L243 52Q243 48 252 48T311 46H328Q360 46 379 47T428 54T478 72T522 106T564 161Q580 191 594 228T611 270Q616 273 628 273H641Q647 264 647 262T627 203T583 83T557 9Q555 4 553 3T537 0T494 -1Q483 -1 418 -1T294 0H116Q32 0 32 10Q32 17 34 24Q39 43 44 45Q48 46 59 46H65Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Q285 635 228 637Z"></path></g></g><g data-mml-node="mrow" transform="translate(220,-686)"><g data-mml-node="mi"><path data-c="1D715" d="M202 508Q179 508 169 520T158 547Q158 557 164 577T185 624T230 675T301 710L333 715H345Q378 715 384 714Q447 703 489 661T549 568T566 457Q566 362 519 240T402 53Q321 -22 223 -22Q123 -22 73 56Q42 102 42 148V159Q42 276 129 370T322 465Q383 465 414 434T455 367L458 378Q478 461 478 515Q478 603 437 639T344 676Q266 676 223 612Q264 606 264 572Q264 547 246 528T202 508ZM430 306Q430 372 401 400T333 428Q270 428 222 382Q197 354 183 323T150 221Q132 149 132 116Q132 21 232 21Q244 21 250 22Q327 35 374 112Q389 137 409 196T430 306Z"></path></g><g data-mml-node="msub" transform="translate(566,0)"><g data-mml-node="mi"><path data-c="210E" d="M137 683Q138 683 209 688T282 694Q294 694 294 685Q294 674 258 534Q220 386 220 383Q220 381 227 388Q288 442 357 442Q411 442 444 415T478 336Q478 285 440 178T402 50Q403 36 407 31T422 26Q450 26 474 56T513 138Q516 149 519 151T535 153Q555 153 555 145Q555 144 551 130Q535 71 500 33Q466 -10 419 -10H414Q367 -10 346 17T325 74Q325 90 361 192T398 345Q398 404 354 404H349Q266 404 205 306L198 293L164 158Q132 28 127 16Q114 -11 83 -11Q69 -11 59 -2T48 16Q48 30 121 320L195 616Q195 629 188 632T149 637H128Q122 643 122 645T124 664Q129 683 137 683Z"></path></g><g data-mml-node="mi" transform="translate(609,-150) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g></g><rect width="1669" height="60" x="120" y="220"></rect></g><g data-mml-node="mo" transform="translate(2645,0) translate(0 -0.5)"><path data-c="29" d="M34 1438Q34 1446 37 1448T50 1450H56H71Q73 1448 99 1423T144 1380T198 1319T260 1238T323 1137T385 1013T440 864T485 688T514 485T526 251Q526 134 519 53Q472 -519 162 -860Q139 -885 119 -904T86 -936T71 -949H56Q43 -949 39 -947T34 -937Q88 -883 140 -813Q428 -430 428 251Q428 453 402 628T338 922T245 1146T145 1309T46 1425Q44 1427 42 1429T39 1433T36 1436L34 1438Z"></path></g></g><g data-mml-node="TeXAtom" transform="translate(3414,1176.6) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mstyle" transform="scale(1.414)"><g data-mml-node="mspace"></g></g><g data-mml-node="mi" transform="translate(-236.2,0)"><path data-c="22A4" d="M55 642T55 648T59 659T66 666T71 668H708Q723 660 723 648T708 628H409V15Q402 2 391 0Q387 0 384 1T379 3T375 6T373 9T371 13T369 16V628H71Q70 628 67 630T59 637Z"></path></g></g></g></g></g></svg>
+<text x="24" y="352" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">one-hot 把整张梯度表清零，只留第 i 行</text>
+<text x="24" y="370" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">11 个 token → 11 行被更新，其余行不动</text>
+<text x="24" y="388" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#185FA5">37000 − 11 = 36989 行这一步梯度恰为 0</text>
+
+<text x="400" y="278" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">梯度表（形状同 E）</text>
+<rect x="400" y="284" width="150" height="144" fill="#FAFAF7" stroke="#888780" stroke-width="0.6"/>
+<line x1="400" y1="296" x2="550" y2="296" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="400" y1="308" x2="550" y2="308" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="400" y1="320" x2="550" y2="320" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="400" y1="332" x2="550" y2="332" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="400" y1="344" x2="550" y2="344" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="400" y1="356" x2="550" y2="356" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="400" y1="368" x2="550" y2="368" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="400" y1="380" x2="550" y2="380" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="400" y1="392" x2="550" y2="392" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="400" y1="404" x2="550" y2="404" stroke="#E3E1D8" stroke-width="0.5"/>
+<line x1="400" y1="416" x2="550" y2="416" stroke="#E3E1D8" stroke-width="0.5"/>
+<rect x="400" y="308" width="150" height="12" fill="#BBD9F5" stroke="#185FA5" stroke-width="0.6"/>
+<rect x="400" y="356" width="150" height="12" fill="#BBD9F5" stroke="#185FA5" stroke-width="0.6"/>
+<rect x="400" y="392" width="150" height="12" fill="#BBD9F5" stroke="#185FA5" stroke-width="0.6"/>
+<text x="562" y="322" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#185FA5">蓝色行：</text>
+<text x="562" y="338" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#185FA5">本步被取到</text>
+<text x="562" y="362" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">灰色行：</text>
+<text x="562" y="378" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">恒为 0</text>
+</svg>
