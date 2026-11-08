@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 520" width="680" height="520" role="img">
+<title>朴素注意力与 FlashAttention 的搬运对比</title>
+<desc>朴素实现把 L×L 的分数矩阵写进显存再读回四次；FlashAttention 让块留在片上，只搬 Q/K/V/O。</desc>
+<defs>
+<marker id="a10" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+<marker id="a10b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M2 1L8 5L2 9" fill="none" stroke="#534AB7" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+</defs>
+
+<text x="24" y="26" font-family="PingFang SC, sans-serif" font-size="14" font-weight="500" fill="#2C2C2A">FlashAttention：那张 L×L 的表，从头到尾不必建出来</text>
+<text x="24" y="46" font-family="PingFang SC, sans-serif" font-size="11" fill="#5F5E5A">同一层、单头、L = 4096、d_k = 64、fp16 计账；两个面板搬的是同一次计算</text>
+
+<rect x="16" y="60" width="318" height="252" rx="8" fill="#FFFFFF" stroke="#888780" stroke-width="0.5"/>
+<text x="32" y="82" font-family="PingFang SC, sans-serif" font-size="11" font-weight="500" fill="#2C2C2A">朴素实现：三个 kernel 靠显存交接半成品</text>
+
+<rect x="32" y="94" width="96" height="28" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="80" y="112" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#0C447C">① 打分 QK</text>
+
+<rect x="32" y="166" width="96" height="28" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="80" y="184" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#0C447C">② softmax</text>
+
+<rect x="32" y="238" width="96" height="28" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="80" y="256" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#0C447C">③ 乘 V 求和</text>
+
+<rect x="176" y="94" width="146" height="172" rx="6" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+<text x="249" y="112" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">HBM（显存）</text>
+<rect x="190" y="122" width="118" height="100" rx="4" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="249" y="152" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" font-weight="500" fill="#0C447C">S / P</text>
+<text x="249" y="172" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#0C447C">4096 × 4096</text>
+<text x="249" y="190" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#185FA5">33.5 MB</text>
+<text x="249" y="210" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="8.5" fill="#888780">必须整块存在</text>
+
+<line x1="128" y1="108" x2="174" y2="108" stroke="#888780" stroke-width="1.1" marker-end="url(#a10)"/>
+<text x="151" y="102" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="8.5" fill="#5F5E5A">写 S</text>
+<line x1="174" y1="180" x2="128" y2="180" stroke="#888780" stroke-width="1.1" marker-end="url(#a10)"/>
+<text x="151" y="174" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="8.5" fill="#5F5E5A">读 S</text>
+<line x1="128" y1="196" x2="174" y2="196" stroke="#888780" stroke-width="1.1" marker-end="url(#a10)"/>
+<text x="151" y="192" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="8.5" fill="#5F5E5A">写 P</text>
+<line x1="174" y1="252" x2="128" y2="252" stroke="#888780" stroke-width="1.1" marker-end="url(#a10)"/>
+<text x="151" y="246" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="8.5" fill="#5F5E5A">读 P</text>
+
+<text x="32" y="290" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#2C2C2A">四次 33.5 MB，合计 134 MB：搬的全是刚写完又读回的中间物</text>
+
+<rect x="346" y="60" width="318" height="252" rx="8" fill="#FFFFFF" stroke="#888780" stroke-width="0.5"/>
+<text x="362" y="82" font-family="PingFang SC, sans-serif" font-size="11" font-weight="500" fill="#2C2C2A">FlashAttention：块只活在片上，L² 不落地</text>
+
+<rect x="356" y="94" width="86" height="172" rx="6" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+<text x="399" y="110" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">HBM</text>
+<rect x="364" y="118" width="70" height="24" rx="4" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="399" y="134" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9" fill="#0C447C">Q  0.5 MB</text>
+<rect x="364" y="150" width="70" height="24" rx="4" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="399" y="166" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9" fill="#0C447C">K  0.5 MB</text>
+<rect x="364" y="182" width="70" height="24" rx="4" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="399" y="198" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9" fill="#0C447C">V  0.5 MB</text>
+<rect x="364" y="226" width="70" height="24" rx="4" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="399" y="242" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9" fill="#0C447C">O  0.5 MB</text>
+
+<rect x="470" y="94" width="184" height="172" rx="6" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="562" y="112" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#3C3489">SRAM（片上，约 100 KB）</text>
+<rect x="486" y="120" width="152" height="34" rx="4" fill="#FFFFFF" stroke="#534AB7" stroke-width="0.5"/>
+<text x="562" y="141" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#3C3489">当前这一块分数：128 × 128</text>
+<text x="486" y="174" font-family="PingFang SC, sans-serif" font-size="8.5" fill="#3C3489">m、l：截至本块的最大值与指数和</text>
+<text x="486" y="192" font-family="PingFang SC, sans-serif" font-size="9" fill="#3C3489">acc：输出累加器，128 × 64</text>
+<text x="486" y="214" font-family="PingFang SC, sans-serif" font-size="9" fill="#534AB7">算完这一块：更新 m 与 l，按比例</text>
+<text x="486" y="230" font-family="PingFang SC, sans-serif" font-size="9" fill="#534AB7">缩放 acc，然后整块丢弃</text>
+<text x="486" y="252" font-family="PingFang SC, sans-serif" font-size="9" font-weight="500" fill="#3C3489">峰值：0.1 MB，不是 33.5 MB</text>
+
+<line x1="444" y1="120" x2="468" y2="120" stroke="#534AB7" stroke-width="1.1" marker-end="url(#a10b)"/>
+<text x="452" y="114" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="7.5" fill="#3C3489">取 K/V</text>
+<line x1="468" y1="238" x2="444" y2="238" stroke="#534AB7" stroke-width="1.1" marker-end="url(#a10b)"/>
+<text x="452" y="252" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="7.5" fill="#3C3489">写 O</text>
+
+<text x="362" y="290" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#2C2C2A">只搬原料：K/V 重读 32 遍 ≈ 33.5 MB</text>
+
+<line x1="24" y1="330" x2="656" y2="330" stroke="#888780" stroke-width="0.6"/>
+<text x="24" y="348" font-family="PingFang SC, sans-serif" font-size="10" font-weight="500" fill="#2C2C2A">账目</text>
+<text x="252" y="348" font-family="PingFang SC, sans-serif" font-size="10" font-weight="500" fill="#2C2C2A">朴素（三个 kernel）</text>
+<text x="470" y="348" font-family="PingFang SC, sans-serif" font-size="10" font-weight="500" fill="#2C2C2A">FlashAttention</text>
+<line x1="24" y1="356" x2="656" y2="356" stroke="#888780" stroke-width="0.6"/>
+
+<text x="24" y="376" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">显存峰值（每头）</text>
+<text x="252" y="376" font-family="PingFang SC, sans-serif" font-size="10" fill="#2C2C2A">33.5 MB</text>
+<text x="470" y="376" font-family="PingFang SC, sans-serif" font-size="10" fill="#1D9E75">0.1 MB（约 1/300）</text>
+
+<text x="24" y="404" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">显存搬运（每头）</text>
+<text x="252" y="404" font-family="PingFang SC, sans-serif" font-size="10" fill="#2C2C2A">134 MB（4 遍 L²）</text>
+<text x="470" y="404" font-family="PingFang SC, sans-serif" font-size="10" fill="#1D9E75">33.5 MB（约 1/4）</text>
+
+<text x="24" y="432" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">访存强度</text>
+<text x="252" y="432" font-family="PingFang SC, sans-serif" font-size="10" fill="#2C2C2A">32 FLOP / byte</text>
+<text x="470" y="432" font-family="PingFang SC, sans-serif" font-size="10" fill="#1D9E75">128 FLOP / byte（A100 脊点 156）</text>
+
+<text x="24" y="460" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">FLOPs</text>
+<text x="252" y="460" font-family="PingFang SC, sans-serif" font-size="10" fill="#2C2C2A">4.3 GFLOP</text>
+<text x="470" y="460" font-family="PingFang SC, sans-serif" font-size="10" fill="#C0392B">4.3 GFLOP（反向还要重算，略增）</text>
+
+<line x1="24" y1="470" x2="656" y2="470" stroke="#888780" stroke-width="0.6"/>
+<text x="24" y="490" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#2C2C2A">读法：搬运只降到 1/4，所以速度是 2–4×；显存降到 1/300，所以 32k 上下文从"放不下"变成"放得下"。FLOPs 一分没省。</text>
+<text x="24" y="508" font-family="PingFang SC, sans-serif" font-size="9" fill="#888780">数值按 L = 4096、d_k = 64、fp16、块 128×128 估算；真实实现随块大小与硬件浮动。</text>
+</svg>
