@@ -15,6 +15,9 @@ IMG_*.JPG
 # 其他非笔记正文产出
 *.html
 
+# WorkBuddy 本地协作配置与 skill（只留本地，不入库）
+.workbuddy/
+
 # 尚未整理完成的知识点（整理好后删除对应行即可上传）
 自注意力机制/
 Transformer整体架构/
