@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 366" width="680" height="366" role="img">
 <title>块取多大：把片上空间逐项加出来</title>
-<desc>按 fp16 逐项累加，128 行的方案需要 113 KB，装进 A100 单块 164 KB 的上限；改成 256 行需要约 192 KB，装不下。</desc>
+<desc>按 fp16 逐项累加，128 行的方案需要 113 KB，装进 A100 单块 164 KB 的上限；改成 256 行需要约 194 KB，装不下。</desc>
 <text x="24" y="26" font-family="PingFang SC, sans-serif" font-size="14" font-weight="500" fill="#2C2C2A">块取多大：把片上空间逐项加出来</text>
 <text x="24" y="46" font-family="PingFang SC, sans-serif" font-size="11" fill="#5F5E5A">前提：每头 d_k = 64（512 ÷ 8 头）、fp16 每数 2 字节、A100 单个计算块可用共享内存 164 KB</text>
 
@@ -34,6 +34,6 @@
 <rect x="24" y="288" width="435" height="12" rx="6" fill="#185FA5"/>
 <text x="656" y="318" text-anchor="end" font-family="PingFang SC, sans-serif" font-size="11" fill="#5F5E5A">113 / 164 KB，还剩 51 KB</text>
 
-<text x="24" y="340" font-family="PingFang SC, sans-serif" font-size="11" fill="#A32D2D">把行数改成 256：32 + 16 + 16 + 64 + 64 = 192 KB &gt; 164 KB，装不下——128 是「再大一号就爆」的那一档</text>
-<text x="24" y="358" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">块越大，K/V 要付的重读遍数越少；所以块取「装得下的最大值」，而不是某个规定常数。</text>
+<text x="24" y="340" font-family="PingFang SC, sans-serif" font-size="11" fill="#A32D2D">把行数改成 256：32+16+16+64+64+2 = 194 KB &gt; 164 KB，装不下——128 是「再大一号就爆」的那一档</text>
+<text x="24" y="358" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">块越大，Q 要付的重读遍数越少；所以块取「装得下的最大值」，而不是某个规定常数。</text>
 </svg>

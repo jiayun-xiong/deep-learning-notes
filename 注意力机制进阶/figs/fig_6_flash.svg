@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 330" width="680" height="330" role="img">
+<title>两种做法算的是同一次注意力，区别只在「那张 L×L 的表存不存」</title>
+<desc>例子：L = 4096、单头、fp16。一张打分表 4096×4096×2 字节 = 33.5 MB</desc>
+<defs>
+<marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+</defs>
+<text x="24" y="26" font-family="PingFang SC, sans-serif" font-size="13.5" font-weight="500" fill="#2C2C2A">两种做法算的是同一次注意力，区别只在「那张 L×L 的表存不存」</text>
+<text x="24" y="45" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">例子：L = 4096、单头、fp16。一张打分表 4096×4096×2 字节 = 33.5 MB</text>
+<rect x="20" y="62" width="316" height="250" rx="8" fill="#FFFFFF" stroke="#888780" stroke-width="0.7"/>
+<text x="34" y="84" font-family="PingFang SC, sans-serif" font-size="11" font-weight="500" fill="#444441">朴素：三步接力，每步都过一遍显存</text>
+<rect x="34" y="96" width="288" height="46" rx="5" fill="#F1EFE8" stroke="#888780" stroke-width="0.6"/>
+<text x="46" y="115" font-family="PingFang SC, sans-serif" font-size="10.5" font-weight="500" fill="#2C2C2A">① 算 S = Q·Kᵀ</text>
+<text x="46" y="131" font-family="PingFang SC, sans-serif" font-size="9" fill="#5F5E5A">把整张 33.5 MB 的表写回显存</text>
+<rect x="34" y="154" width="288" height="46" rx="5" fill="#F1EFE8" stroke="#888780" stroke-width="0.6"/>
+<text x="46" y="173" font-family="PingFang SC, sans-serif" font-size="10.5" font-weight="500" fill="#2C2C2A">② 读回整张 S 做 softmax</text>
+<text x="46" y="189" font-family="PingFang SC, sans-serif" font-size="9" fill="#5F5E5A">又把整张 P 写回显存</text>
+<rect x="34" y="212" width="288" height="46" rx="5" fill="#F1EFE8" stroke="#888780" stroke-width="0.6"/>
+<text x="46" y="231" font-family="PingFang SC, sans-serif" font-size="10.5" font-weight="500" fill="#2C2C2A">③ 读回整张 P 乘 V</text>
+<text x="46" y="247" font-family="PingFang SC, sans-serif" font-size="9" fill="#5F5E5A">才得到输出 O</text>
+<text x="34" y="282" font-family="PingFang SC, sans-serif" font-size="9.5" font-weight="500" fill="#C0392B">中间产物进出显存 4 次：共搬 134 MB</text>
+<text x="34" y="298" font-family="PingFang SC, sans-serif" font-size="9" fill="#5F5E5A">—— 这些数里没有一个是你真正要的答案</text>
+<rect x="344" y="62" width="316" height="250" rx="8" fill="#FFFFFF" stroke="#185FA5" stroke-width="0.9"/>
+<text x="358" y="84" font-family="PingFang SC, sans-serif" font-size="11" font-weight="500" fill="#0C447C">FlashAttention：一块 K/V 站住，Q 一块块过</text>
+<rect x="358" y="100" width="92" height="40" rx="5" fill="#DCE9F7" stroke="#185FA5" stroke-width="0.8"/>
+<text x="404" y="118" font-family="PingFang SC, sans-serif" font-size="10.5" font-weight="500" text-anchor="middle" fill="#0C447C">K/V 第 1 块</text>
+<text x="404" y="132" font-family="PingFang SC, sans-serif" font-size="8.5" text-anchor="middle" fill="#0C447C">Kᵀ 128 列 + V 128 行</text>
+<rect x="466" y="100" width="88" height="36" rx="5" fill="#F1EFE8" stroke="#888780" stroke-width="0.6"/>
+<text x="510" y="122" font-family="PingFang SC, sans-serif" font-size="9.5" text-anchor="middle" fill="#444441">Q 第 1 块 · 128 行</text>
+<rect x="466" y="148" width="88" height="36" rx="5" fill="#F1EFE8" stroke="#888780" stroke-width="0.6"/>
+<text x="510" y="170" font-family="PingFang SC, sans-serif" font-size="9.5" text-anchor="middle" fill="#444441">Q 第 2 块 · 128 行</text>
+<rect x="466" y="196" width="88" height="36" rx="5" fill="#F1EFE8" stroke="#888780" stroke-width="0.6"/>
+<text x="510" y="218" font-family="PingFang SC, sans-serif" font-size="9.5" text-anchor="middle" fill="#444441">…… 共 32 块</text>
+<rect x="570" y="100" width="76" height="132" rx="5" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.8"/>
+<text x="608" y="122" font-family="PingFang SC, sans-serif" font-size="10.5" font-weight="500" text-anchor="middle" fill="#04342C">acc</text>
+<text x="608" y="138" font-family="PingFang SC, sans-serif" font-size="8" text-anchor="middle" fill="#04342C">边算边累加</text>
+<text x="608" y="152" font-family="PingFang SC, sans-serif" font-size="8" text-anchor="middle" fill="#04342C">（128×64）</text>
+<text x="608" y="176" font-family="PingFang SC, sans-serif" font-size="8.5" text-anchor="middle" fill="#04342C">K/V 块不动</text>
+<text x="608" y="190" font-family="PingFang SC, sans-serif" font-size="8.5" text-anchor="middle" fill="#04342C">Q 走完一轮，</text>
+<text x="608" y="204" font-family="PingFang SC, sans-serif" font-size="8.5" text-anchor="middle" fill="#04342C">换下一块 K/V</text>
+<line x1="452" y1="120" x2="464" y2="120" stroke="#888780" stroke-width="1.1" marker-end="url(#ar)"/>
+<line x1="452" y1="166" x2="464" y2="166" stroke="#888780" stroke-width="1.1" marker-end="url(#ar)"/>
+<line x1="452" y1="214" x2="464" y2="214" stroke="#888780" stroke-width="1.1" marker-end="url(#ar)"/>
+<line x1="556" y1="120" x2="568" y2="120" stroke="#888780" stroke-width="1.1" marker-end="url(#ar)"/>
+<line x1="556" y1="166" x2="568" y2="166" stroke="#888780" stroke-width="1.1" marker-end="url(#ar)"/>
+<line x1="556" y1="214" x2="568" y2="214" stroke="#888780" stroke-width="1.1" marker-end="url(#ar)"/>
+<text x="358" y="256" font-family="PingFang SC, sans-serif" font-size="9.5" font-weight="500" fill="#04342C">攒齐后 ÷ l 得 O 块；L×L 的表从头到尾没出现过</text>
+<text x="358" y="272" font-family="PingFang SC, sans-serif" font-size="9" fill="#5F5E5A">代价：Q 被重复搬 32 遍（下节算）</text>
+</svg>

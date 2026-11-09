@@ -50,5 +50,5 @@
 <text x="364" y="338" font-family="PingFang SC, sans-serif" font-size="10" fill="#3C3489">精确等价，搬运 1/4、峰值 1/300。</text>
 <text x="364" y="362" font-family="PingFang SC, sans-serif" font-size="10" fill="#2C2C2A">滑窗：只看最近 w 个位置，计算与 cache</text>
 <text x="364" y="380" font-family="PingFang SC, sans-serif" font-size="10" fill="#2C2C2A">降到 w——但这是真近似。</text>
-<text x="364" y="404" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#888780">→ 第四节（图 6 ～ 图 11）</text>
+<text x="364" y="404" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#888780">→ 第四节（图 6 ～ 图 9）</text>
 </svg>
