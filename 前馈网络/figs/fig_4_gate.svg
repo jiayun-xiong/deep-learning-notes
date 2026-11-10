@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 386" width="680" height="386" role="img">
+<title>三代激活：硬门 → 概率门 → 门控乘法</title>
+<desc>左侧对比四种门函数在负半轴的形状差异，右侧展示 SwiGLU 中内容路与门路相乘的三矩阵结构。</desc>
+<defs>
+<marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+</defs>
+<text x="24" y="26" font-family="PingFang SC, sans-serif" font-size="14" font-weight="500" fill="#2C2C2A">三代激活：硬门 → 概率门 → 门控乘法</text>
+<text x="24" y="46" font-family="PingFang SC, sans-serif" font-size="11.5" fill="#5F5E5A">左：门函数负半轴对比——sigmoid 一路清零，Swish 留有小鼓包；右：SwiGLU 的两路结构</text>
+<line x1="40" y1="210" x2="330" y2="210" stroke="#888780" stroke-width="1.0"/>
+<line x1="176" y1="84" x2="176" y2="306" stroke="#888780" stroke-width="1.0"/>
+<text x="322" y="202" text-anchor="start" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">z</text>
+<text x="168" y="224" text-anchor="end" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">0</text>
+<polyline points="64.0,210.0 176.0,210.0 280.0,100.8" fill="none" stroke="#888780" stroke-width="1.6"/>
+<polyline points="64.0,207.6 68.0,207.4 72.0,207.1 76.0,206.8 80.0,206.5 84.0,206.2 88.0,205.8 92.0,205.4 96.0,205.0 100.0,204.5 104.0,204.0 108.0,203.5 112.0,202.9 116.0,202.3 120.0,201.7 124.0,201.0 128.0,200.3 132.0,199.5 136.0,198.7 140.0,197.9 144.0,197.0 148.0,196.1 152.0,195.1 156.0,194.1 160.0,193.1 164.0,192.1 168.0,191.1 172.0,190.0 176.0,189.0 180.0,188.0 184.0,186.9 188.0,185.9 192.0,184.9 196.0,183.9 200.0,182.9 204.0,181.9 208.0,181.0 212.0,180.1 216.0,179.3 220.0,178.5 224.0,177.7 228.0,177.0 232.0,176.3 236.0,175.7 240.0,175.1 244.0,174.5 248.0,174.0 252.0,173.5 256.0,173.0 260.0,172.6 264.0,172.2 268.0,171.8 272.0,171.5 276.0,171.2 280.0,170.9 284.0,170.6 288.0,170.4" fill="none" stroke="#C2661B" stroke-width="1.8"/>
+<polyline points="64.0,210.3 68.0,210.4 72.0,210.5 76.0,210.6 80.0,210.8 84.0,211.0 88.0,211.3 92.0,211.6 96.0,211.9 100.0,212.3 104.0,212.7 108.0,213.2 112.0,213.7 116.0,214.2 120.0,214.8 124.0,215.3 128.0,215.8 132.0,216.3 136.0,216.7 140.0,217.0 144.0,217.1 148.0,217.1 152.0,216.9 156.0,216.5 160.0,215.8 164.0,214.8 168.0,213.5 172.0,211.9 176.0,210.0 180.0,207.7 184.0,205.1 188.0,202.2 192.0,199.0 196.0,195.5 200.0,191.7 204.0,187.7 208.0,183.5 212.0,179.2 216.0,174.7 220.0,170.1 224.0,165.4 228.0,160.7 232.0,156.0 236.0,151.2 240.0,146.5 244.0,141.8 248.0,137.1 252.0,132.5 256.0,127.9 260.0,123.4 264.0,118.9 268.0,114.4 272.0,110.0 276.0,105.6 280.0,101.3 284.0,97.0 288.0,92.7" fill="none" stroke="#185FA5" stroke-width="1.8"/>
+<polyline points="64.0,216.7 68.0,217.1 72.0,217.5 76.0,218.0 80.0,218.4 84.0,218.8 88.0,219.2 92.0,219.6 96.0,220.0 100.0,220.4 104.0,220.7 108.0,221.0 112.0,221.3 116.0,221.5 120.0,221.6 124.0,221.7 128.0,221.7 132.0,221.5 136.0,221.3 140.0,220.9 144.0,220.4 148.0,219.8 152.0,218.9 156.0,217.9 160.0,216.7 164.0,215.4 168.0,213.8 172.0,212.0 176.0,210.0 180.0,207.8 184.0,205.4 188.0,202.8 192.0,199.9 196.0,196.9 200.0,193.7 204.0,190.4 208.0,186.8 212.0,183.1 216.0,179.3 220.0,175.3 224.0,171.3 228.0,167.1 232.0,162.8 236.0,158.5 240.0,154.1 244.0,149.6 248.0,145.1 252.0,140.6 256.0,136.0 260.0,131.4 264.0,126.8 268.0,122.2 272.0,117.6 276.0,113.0 280.0,108.3 284.0,103.7 288.0,99.1" fill="none" stroke="#1D9E75" stroke-width="1.8"/>
+<line x1="48" y1="92" x2="72" y2="92" stroke="#888780" stroke-width="1.8"/>
+<text x="78" y="96" text-anchor="start" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">ReLU</text>
+<line x1="48" y1="109" x2="72" y2="109" stroke="#185FA5" stroke-width="1.8"/>
+<text x="78" y="113" text-anchor="start" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">GELU</text>
+<line x1="48" y1="126" x2="72" y2="126" stroke="#1D9E75" stroke-width="1.8"/>
+<text x="78" y="130" text-anchor="start" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">Swish</text>
+<line x1="48" y1="143" x2="72" y2="143" stroke="#C2661B" stroke-width="1.8"/>
+<text x="78" y="147" text-anchor="start" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">sigmoid</text>
+<line x1="74" y1="226" x2="82" y2="207" stroke="#888780" stroke-width="0.7" stroke-dasharray="2,2"/>
+<text x="74" y="240" text-anchor="start" font-family="PingFang SC, sans-serif" font-size="10" fill="#C2661B">清零</text>
+<text x="74" y="252" text-anchor="start" font-family="PingFang SC, sans-serif" font-size="9" fill="#5F5E5A">越负越关死</text>
+<line x1="156" y1="248" x2="133" y2="226" stroke="#888780" stroke-width="0.7" stroke-dasharray="2,2"/>
+<text x="158" y="252" text-anchor="start" font-family="PingFang SC, sans-serif" font-size="10" fill="#04342C">小鼓包</text>
+<text x="158" y="264" text-anchor="start" font-family="PingFang SC, sans-serif" font-size="9" fill="#5F5E5A">压小后回弹</text>
+<text x="180" y="330" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">负半轴是闸门的分水岭：sigmoid 把它做成了清零，Swish 留了一线生机</text>
+<rect x="452" y="74" width="96" height="30" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+<text x="500.0" y="93.0" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" fill="#2C2C2A">x</text>
+<text x="556" y="93" text-anchor="start" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">1×d</text>
+<line x1="500" y1="104" x2="500" y2="116" stroke="#888780" stroke-width="1.0"/>
+<line x1="434" y1="116" x2="566" y2="116" stroke="#888780" stroke-width="1.0"/>
+<line x1="434" y1="116" x2="434" y2="126" stroke="#888780" stroke-width="1.0"/>
+<line x1="566" y1="116" x2="566" y2="126" stroke="#888780" stroke-width="1.0"/>
+<rect x="390" y="126" width="88" height="30" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<frag x="434" y="145" size="11.5" color="#3C3489" anchor="middle" tex="xW_1"/>
+<rect x="522" y="126" width="88" height="30" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<frag x="566" y="145" size="11.5" color="#3C3489" anchor="middle" tex="xW_2"/>
+<text x="420" y="205" text-anchor="end" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">内容</text>
+<text x="590" y="205" text-anchor="start" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">闸门</text>
+<circle cx="566" cy="196" r="17" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.6"/>
+<text x="566" y="200" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#04342C">Swish</text>
+<line x1="566" y1="156" x2="566" y2="177" stroke="#888780" stroke-width="1.2" marker-end="url(#ar)"/>
+<line x1="566" y1="213" x2="566" y2="222" stroke="#888780" stroke-width="1.2" marker-end="url(#ar)"/>
+<circle cx="500" cy="240" r="15" fill="#FFFFFF" stroke="#888780" stroke-width="0.6"/>
+<frag x="500" y="245" size="12" color="#2C2C2A" anchor="middle" tex="\otimes"/>
+<line x1="434" y1="156" x2="434" y2="240" stroke="#888780" stroke-width="1.0"/>
+<line x1="434" y1="240" x2="484" y2="240" stroke="#888780" stroke-width="1.0"/>
+<line x1="566" y1="222" x2="566" y2="240" stroke="#888780" stroke-width="1.0"/>
+<line x1="566" y1="240" x2="516" y2="240" stroke="#888780" stroke-width="1.0"/>
+<line x1="500" y1="256" x2="500" y2="268" stroke="#888780" stroke-width="1.2" marker-end="url(#ar)"/>
+<rect x="452" y="270" width="96" height="30" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<frag x="500" y="289" size="11.5" color="#3C3489" anchor="middle" tex="W_3"/>
+<text x="556" y="289" text-anchor="start" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">dff×d</text>
+<line x1="500" y1="300" x2="500" y2="316" stroke="#888780" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="500" y="332" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11.5" fill="#2C2C2A">Δx</text>
+<text x="340" y="356" text-anchor="start" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">三矩阵：W1、W2 各 d×dff，W3 为 dff×d</text>
+</svg>
