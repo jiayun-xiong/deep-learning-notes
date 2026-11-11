@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 336" width="680" height="336" role="img">
+<title>归一化抹掉的是哪几个方向</title>
+<desc>把 d 维输入拆成平移方向、尺度方向与形状方向三块；LN 抹掉前两块（保留 d−2 维），RMSNorm 只抹掉尺度（保留 d−1 维）。</desc>
+<text x="24" y="26" font-family="PingFang SC, sans-serif" font-size="14" font-weight="500" fill="#2C2C2A">归一化抹掉的是哪几个方向</text>
+<text x="24" y="46" font-family="PingFang SC, sans-serif" font-size="11.5" fill="#5F5E5A">把 d 维输入拆成三块：整体平移、整体缩放、以及剩下的“形状”——两者只差在抹不抹平移</text>
+<text x="165" y="90" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11.5" fill="#2C2C2A" font-weight="500">平移方向（1 维）</text>
+<text x="347" y="90" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11.5" fill="#2C2C2A" font-weight="500">尺度方向（1 维）</text>
+<text x="552" y="90" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11.5" fill="#2C2C2A" font-weight="500">形状方向（d−2 维）</text>
+<text x="70" y="145" text-anchor="end" font-family="PingFang SC, sans-serif" font-size="12" font-weight="500" fill="#0C447C">LN</text>
+<text x="70" y="217" text-anchor="end" font-family="PingFang SC, sans-serif" font-size="12" font-weight="500" fill="#04342C">RMSNorm</text>
+<rect x="80" y="110" width="170" height="58" rx="8" fill="#F7E4DE" stroke="#C2410C" stroke-width="0.5"/>
+<text x="165" y="144" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" fill="#C2410C">抹掉（减均值）</text>
+<rect x="262" y="110" width="170" height="58" rx="8" fill="#F7E4DE" stroke="#C2410C" stroke-width="0.5"/>
+<text x="347" y="144" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" fill="#C2410C">抹掉（除以 σ）</text>
+<rect x="444" y="110" width="216" height="58" rx="8" fill="#E9F6F0" stroke="#1D9E75" stroke-width="0.5"/>
+<text x="552" y="144" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" fill="#04342C">保留（再乘 γ）</text>
+<rect x="80" y="182" width="170" height="58" rx="8" fill="#E9F6F0" stroke="#1D9E75" stroke-width="0.5"/>
+<text x="165" y="216" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" fill="#04342C">保留（μ 就在这里）</text>
+<rect x="262" y="182" width="170" height="58" rx="8" fill="#F7E4DE" stroke="#C2410C" stroke-width="0.5"/>
+<text x="347" y="216" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" fill="#C2410C">抹掉（除以 r）</text>
+<rect x="444" y="182" width="216" height="58" rx="8" fill="#E9F6F0" stroke="#1D9E75" stroke-width="0.5"/>
+<text x="552" y="216" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" fill="#04342C">保留（再乘 γ）</text>
+<text x="24" y="272" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#0C447C">LN 输出只剩 d−2 维——与 5.3 里 J_LN 的秩 d−2 对得上：被抹掉的两个方向，梯度恒为 0</text>
+<text x="24" y="294" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#04342C">RMSNorm 保留 d−1 维，多留的那一维正是平移方向：μ 除以 r 之后仍留在向量里</text>
+<text x="24" y="316" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">两个方向都不携带“形状”信息，抹掉不改形状；差别只在于要不要连 μ 一起抹</text>
+</svg>
