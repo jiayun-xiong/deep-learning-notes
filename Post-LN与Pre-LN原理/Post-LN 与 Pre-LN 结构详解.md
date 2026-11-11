@@ -116,7 +116,7 @@ $$
 $$
 \frac{\partial x''}{\partial x}=\underbrace{J_{\mathrm{LN}}\bigl(I+J_F\bigr)}_{\text{post：LN 在括号外，躲不掉}}
 \qquad\text{vs}\qquad
-\frac{\partial x''}{\partial x}=\underbrace{I+J_F\,J_{\mathrm{LN}}}_{\text{pre：LN 在括号里，可以绕}}
+\frac{\partial x''}{\partial x}=\underbrace{I+J_F\hspace{0.1667em}J_{\mathrm{LN}}}_{\text{pre：LN 在括号里，可以绕}}
 $$
 
 - **post 躲不掉**：$J_{\mathrm{LN}}$ 在括号**外面**，沿哪条路径回传都得乘一个，$L$ 层就是连乘 $2L$ 个（24 层 = 48 个）；**pre 能绕**：那个 $I$ 是裸的，展成连乘时存在一条"全选 $I$"的路径，一台都不穿。
@@ -165,7 +165,7 @@ $x'$ 具体怎么算，第 2、3 节逐步骤会写；两边同名不同义的�
 
 $$
 Q=XW_q,\quad K=XW_k,\quad V=XW_v,\quad
-A=\operatorname{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}+M\right),\quad
+A=\operatorname{softmax}\hspace{-0.1667em}\left(\frac{QK^\top}{\sqrt{d_k}}+M\right),\quad
 O=AVW_O
 $$
 
@@ -194,7 +194,7 @@ $$
 每个 token 独立过两层 MLP，中间夹非线性：
 
 $$
-\operatorname{FFN}(h)=W_2\,\sigma_{\text{act}}(W_1h+b_1)+b_2,
+\operatorname{FFN}(h)=W_2\hspace{0.1667em}\sigma_{\text{act}}(W_1h+b_1)+b_2,
 \qquad d\to 4d\to d
 $$
 
@@ -365,7 +365,7 @@ $$
 $$
 \underbrace{\frac{\partial x_{l+1}}{\partial x_l}=J_{\operatorname{LN}}(z_l)\bigl(I+J_{F,l}\bigr)}_{\text{post-LN}}
 \qquad\text{vs}\qquad
-\underbrace{\frac{\partial x_{l+1}}{\partial x_l}=I+J_{F,l}\,J_{\operatorname{LN}}(x_l)}_{\text{pre-LN}}
+\underbrace{\frac{\partial x_{l+1}}{\partial x_l}=I+J_{F,l}\hspace{0.1667em}J_{\operatorname{LN}}(x_l)}_{\text{pre-LN}}
 $$
 
 > **说人话**：post-LN 的 $J_{\operatorname{LN}}$ 站在**括号外面**，所以不管你沿哪条路径回传，每个 block 都至少乘一个 LN；pre-LN 里那个 $I$ 是**裸的**，展开连乘时存在一条"全选 $I$"的路径，一次 LN 都不经过。
@@ -428,7 +428,7 @@ $\sigma_l$ 大概是多少？LN 的输出被 $\gamma$ 归到 1 附近，所以�
 Adam 的更新是
 
 $$
-\Delta\theta=-\eta\,\frac{\hat m}{\sqrt{\hat v}+\epsilon}
+\Delta\theta=-\eta\hspace{0.1667em}\frac{\hat m}{\sqrt{\hat v}+\epsilon}
 $$
 
 梯度整体乘一个常数 $c$：$m$ 乘 $c$，$v$ 乘 $c^2$，开根号再除，**$c$ 约掉了**。所以"我的梯度比别人的大 100 倍"对 Adam 完全无害——它只看相对大小，不看绝对大小。
@@ -446,7 +446,7 @@ $c$ 什么时候变得最快？就是最开始。权重离初始化最近，同�
 warmup 干的事很朴素：让学习率从 0 线性爬上来，
 
 $$
-\eta_t=\min\bigl(t\cdot T^{-1.5},\;t^{-0.5}\bigr),\qquad T=4000
+\eta_t=\min\bigl(t\cdot T^{-1.5},\hspace{0.2778em}t^{-0.5}\bigr),\qquad T=4000
 $$
 
 升支 $\propto t$、降支 $\propto t^{-0.5}$，两支在 $t=T$ 相交——交点就是峰值，也是"我认为 $\sigma$ 已经稳了"的那个判断：

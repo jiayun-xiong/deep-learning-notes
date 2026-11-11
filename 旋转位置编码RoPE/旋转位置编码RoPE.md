@@ -35,7 +35,7 @@
 
 **先看清"加"和"转"差在哪。** 正弦编码把位置做成**一个加项**塞进词向量（$x_i=e_i+p_i$）：位置成了内容的一部分，之后乘什么权重都会把它和词义搅在一起，拆不开。RoPE 换成**一个操作**——不改数值、只改方向，而且作用在已经投影好的向量上。前者是"把位置写进向量"，后者是"按位置摆向量"，这就是加法注入与旋转的全部区别。
 
-**位置进入的时机也因此推后。** $x_i$ 不加 $p_i$，先乘 $W_Q$、$W_K$ 投出**纯内容**的 $q_i=W_Qx_i$、$k_{i'}=W_Kx_{i'}$，再用位置去旋转它们：$\tilde q_i=R(i\cdot\theta_j)\,q_i$、$\tilde k_{i'}=R(i'\cdot\theta_j)\,k_{i'}$。位置不参与加和，只在旋转这一步出场。
+**位置进入的时机也因此推后。** $x_i$ 不加 $p_i$，先乘 $W_Q$、$W_K$ 投出**纯内容**的 $q_i=W_Qx_i$、$k_{i'}=W_Kx_{i'}$，再用位置去旋转它们：$\tilde q_i=R(i\cdot\theta_j)\hspace{0.1667em}q_i$、$\tilde k_{i'}=R(i'\cdot\theta_j)\hspace{0.1667em}k_{i'}$。位置不参与加和，只在旋转这一步出场。
 
 **转的是哪两维？** 第 $j$ 对是第 $2j$、$2j+1$ 维；RoPE 把它们看成平面上的一个点 $(q_{2j},\ q_{2j+1})$，在这个平面里转 $i\cdot\theta_j$ 弧度（$\theta_j$ 是这个平面的"转速"），每个维度对各转各的角度、快慢不同。RoFormer 论文把一对写作 $(q_{2i-1},\ q_{2i})$、块编号从 1 起，与这里 0 起的 $2j,\ 2j+1$ 是同一种切法，只差 $i=j+1$：
 
@@ -48,7 +48,7 @@ $$
 **一行推导看清全部**。用到旋转矩阵的两个性质：正交性（$R(a)^\top=R(-a)$，转置即反向转）与角度可加（$R(a)R(b)=R(a+b)$，先转 $b$ 再转 $a$ 等于一次转 $a+b$）：
 
 $$
-\big(R(i\cdot\theta_j)q_i\big)\cdot\big(R(i'\cdot\theta_j)k_{i'}\big) = q_i^\top \underbrace{R(i\cdot\theta_j)^\top}_{=\,R(-i\cdot\theta_j)} R(i'\cdot\theta_j)\,k_{i'} = q_i^\top R\big((i'-i)\cdot\theta_j\big)\,k_{i'} = q_i^\top R\big(\Delta i\cdot\theta_j\big)\,k_{i'}
+\big(R(i\cdot\theta_j)q_i\big)\cdot\big(R(i'\cdot\theta_j)k_{i'}\big) = q_i^\top \underbrace{R(i\cdot\theta_j)^\top}_{=\hspace{0.1667em}R(-i\cdot\theta_j)} R(i'\cdot\theta_j)\hspace{0.1667em}k_{i'} = q_i^\top R\big((i'-i)\cdot\theta_j\big)\hspace{0.1667em}k_{i'} = q_i^\top R\big(\Delta i\cdot\theta_j\big)\hspace{0.1667em}k_{i'}
 $$
 
 绝对位置 $i$、$i'$ 单独消失了，**打分只依赖相对位置 $\Delta i$**。这就是"编码绝对、打分相对"两全其美：
@@ -56,9 +56,9 @@ $$
 - 每个 $i$ 有唯一的旋转角 → 绝对位置信息没丢；
 - 点积只吐出夹角差 → 相对位置直接内建，不用学。
 
-复数视角一句话：$e^{\mathrm{i}\,i\cdot\theta_j}\cdot\overline{e^{\mathrm{i}\,i'\cdot\theta_j}} = e^{\mathrm{i}\,\Delta i\cdot\theta_j}$——旋转差 = 位置差（正体 $\mathrm{i}$ 是虚数单位）。
+复数视角一句话：$e^{\mathrm{i}\hspace{0.1667em}i\cdot\theta_j}\cdot\overline{e^{\mathrm{i}\hspace{0.1667em}i'\cdot\theta_j}} = e^{\mathrm{i}\hspace{0.1667em}\Delta i\cdot\theta_j}$——旋转差 = 位置差（正体 $\mathrm{i}$ 是虚数单位）。
 
-**为什么 Q 和 K 必须两边都转？** 若只转 query、key 原地不动，打分变成 $q_i^\top R(-i\cdot\theta_j)k_{i'}$——只跟 query 自己的绝对位置 $i$ 有关，key 坐在哪儿完全看不出来，相对性无从谈起。只转 key 同理。必须 $R(i'\theta_j)\,R(-i\theta_j)=R\big((i'-i)\theta_j\big)$ 才能让两个绝对位置在相乘时相减。位置差为负（key 排在 query 左边）时也不需要额外规则，角度取负即可。
+**为什么 Q 和 K 必须两边都转？** 若只转 query、key 原地不动，打分变成 $q_i^\top R(-i\cdot\theta_j)k_{i'}$——只跟 query 自己的绝对位置 $i$ 有关，key 坐在哪儿完全看不出来，相对性无从谈起。只转 key 同理。必须 $R(i'\theta_j)\hspace{0.1667em}R(-i\theta_j)=R\big((i'-i)\theta_j\big)$ 才能让两个绝对位置在相乘时相减。位置差为负（key 排在 query 左边）时也不需要额外规则，角度取负即可。
 
 ### 1.2 走一遍完整计算：两个 token 的分数是怎么算出来的
 
@@ -126,7 +126,7 @@ $$
 所以：
 
 $$
-R(\Delta i\cdot\theta_j)=\cos(\Delta i\cdot\theta_j)\,I+\sin(\Delta i\cdot\theta_j)\,J,\qquad J=\begin{bmatrix}0&-1\\ 1&0\end{bmatrix}
+R(\Delta i\cdot\theta_j)=\cos(\Delta i\cdot\theta_j)\hspace{0.1667em}I+\sin(\Delta i\cdot\theta_j)\hspace{0.1667em}J,\qquad J=\begin{bmatrix}0&-1\\ 1&0\end{bmatrix}
 $$
 
 **为什么值得这么拆？** 因为 $J$ 就是"逆时针转 90°"这个操作本身，而且
@@ -135,12 +135,12 @@ $$
 J^2=\begin{bmatrix}0&-1\\1&0\end{bmatrix}\begin{bmatrix}0&-1\\1&0\end{bmatrix}=\begin{bmatrix}-1&0\\0&-1\end{bmatrix}=-I
 $$
 
-$J^2=-I$ 与虚数单位 $\mathrm{i}^2=-1$ 完全同构，所以 $\cos\varphi\,I+\sin\varphi\,J$ 不过是 $e^{\mathrm{i}\varphi}=\cos\varphi+\mathrm{i}\sin\varphi$ 的实数版：把 $\mathrm{i}$ 换成矩阵 $J$，公式一字不改。1.1 末尾那句"复数视角"里的 $e^{\mathrm{i}\varphi}$，说的就是这个东西。
+$J^2=-I$ 与虚数单位 $\mathrm{i}^2=-1$ 完全同构，所以 $\cos\varphi\hspace{0.1667em}I+\sin\varphi\hspace{0.1667em}J$ 不过是 $e^{\mathrm{i}\varphi}=\cos\varphi+\mathrm{i}\sin\varphi$ 的实数版：把 $\mathrm{i}$ 换成矩阵 $J$，公式一字不改。1.1 末尾那句"复数视角"里的 $e^{\mathrm{i}\varphi}$，说的就是这个东西。
 
 **它怎么变成打分里的两项？** $I$、$J$ 都是常矩阵，夹进点积后可以逐项分配：
 
 $$
-q_0^\top R(\varphi)\,k_0=\cos\varphi\,(q_0^\top k_0)+\sin\varphi\,(q_0^\top Jk_0)
+q_0^\top R(\varphi)\hspace{0.1667em}k_0=\cos\varphi\hspace{0.1667em}(q_0^\top k_0)+\sin\varphi\hspace{0.1667em}(q_0^\top Jk_0)
 $$
 
 第二项把矩阵乘开（设这一对分量 $q_0=(q_a,q_b)$、$k_0=(k_a,k_b)$）：
@@ -180,7 +180,7 @@ $$
 1.1 的恒等式还可以写成另一种形式（用 $R(\Delta i\cdot\theta_j)^\top=R(-\Delta i\cdot\theta_j)$）：
 
 $$
-q^\top R(\Delta i\cdot\theta_j)\,k \;=\; \big(R(-\Delta i\cdot\theta_j)\,q\big)^\top k
+q^\top R(\Delta i\cdot\theta_j)\hspace{0.1667em}k \hspace{0.2778em}=\hspace{0.2778em} \big(R(-\Delta i\cdot\theta_j)\hspace{0.1667em}q\big)^\top k
 $$
 
 同一个数字，两种读法：
@@ -248,7 +248,7 @@ $$
 
 
 $$
-\text{score}=\sum_{j=0}^{d/2-1}\Big[\cos(\Delta i\cdot\theta_j)\,s_j+\sin(\Delta i\cdot\theta_j)\,c_j\Big]
+\text{score}=\sum_{j=0}^{d/2-1}\Big[\cos(\Delta i\cdot\theta_j)\hspace{0.1667em}s_j+\sin(\Delta i\cdot\theta_j)\hspace{0.1667em}c_j\Big]
 $$
 
 记住这个式子的形状：**一个总分数 = 32 项求和，每项都是"内容读数 × 位置系数"**。由此可以直接读出几个性质：
