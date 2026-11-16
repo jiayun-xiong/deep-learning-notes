@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 540" width="680" height="540" role="img">
+<title>训练与推理：两套跑法</title>
+<desc>上半部画训练的 teacher forcing 与右移一位（12 个位置并行），下半部画推理的自回归循环。</desc>
+<defs>
+<marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+<marker id="ag" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M2 1L8 5L2 9" fill="none" stroke="#1D9E75" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+</defs>
+<text x="24" y="26" font-family="PingFang SC, sans-serif" font-size="14" font-weight="500" fill="#2C2C2A">训练与推理：两套跑法</text>
+<text x="24" y="46" font-family="PingFang SC, sans-serif" font-size="11.5" fill="#5F5E5A">训练并行是因为输入全是真值；推理串行是因为输入要等上一步自己生成——用的是同一个模型</text>
+
+<!-- 训练带 -->
+<text x="24" y="76" font-family="PingFang SC, sans-serif" font-size="11.5" font-weight="500" fill="#0C447C">训练：Teacher Forcing——一次前向，12 个位置并行</text>
+<!-- 输入行 -->
+<rect x="24" y="88" width="42" height="28" rx="6" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+<text x="45" y="106" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#2C2C2A">&lt;bos&gt;</text>
+<rect x="74" y="88" width="42" height="28" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="95" y="106" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11" fill="#0C447C">科</text>
+<rect x="124" y="88" width="42" height="28" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="145" y="106" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11" fill="#0C447C">软</text>
+<rect x="174" y="88" width="42" height="28" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="195" y="106" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11" fill="#0C447C">放</text>
+<rect x="224" y="88" width="42" height="28" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="245" y="106" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11" fill="#0C447C">实</text>
+<rect x="274" y="88" width="42" height="28" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="295" y="106" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11" fill="#0C447C">习</text>
+<rect x="324" y="88" width="42" height="28" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="345" y="106" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11" fill="#0C447C">吸</text>
+<rect x="374" y="88" width="42" height="28" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="395" y="106" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11" fill="#0C447C">引</text>
+<rect x="424" y="88" width="42" height="28" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="445" y="106" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11" fill="#0C447C">学</text>
+<rect x="474" y="88" width="42" height="28" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="495" y="106" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11" fill="#0C447C">生</text>
+<rect x="524" y="88" width="42" height="28" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="545" y="106" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11" fill="#0C447C">报</text>
+<rect x="574" y="88" width="42" height="28" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="595" y="106" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11" fill="#0C447C">考</text>
+<text x="632" y="106" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">输入</text>
+<!-- 目标行 -->
+<rect x="24" y="152" width="42" height="28" rx="6" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.7"/>
+<text x="45" y="170" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11" fill="#04342C">科</text>
+<rect x="74" y="152" width="42" height="28" rx="6" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.7"/>
+<text x="95" y="170" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11" fill="#04342C">软</text>
+<rect x="124" y="152" width="42" height="28" rx="6" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.7"/>
+<text x="145" y="170" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11" fill="#04342C">放</text>
+<rect x="174" y="152" width="42" height="28" rx="6" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.7"/>
+<text x="195" y="170" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11" fill="#04342C">实</text>
+<rect x="224" y="152" width="42" height="28" rx="6" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.7"/>
+<text x="245" y="170" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11" fill="#04342C">习</text>
+<rect x="274" y="152" width="42" height="28" rx="6" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.7"/>
+<text x="295" y="170" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11" fill="#04342C">吸</text>
+<rect x="324" y="152" width="42" height="28" rx="6" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.7"/>
+<text x="345" y="170" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11" fill="#04342C">引</text>
+<rect x="374" y="152" width="42" height="28" rx="6" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.7"/>
+<text x="395" y="170" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11" fill="#04342C">学</text>
+<rect x="424" y="152" width="42" height="28" rx="6" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.7"/>
+<text x="445" y="170" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11" fill="#04342C">生</text>
+<rect x="474" y="152" width="42" height="28" rx="6" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.7"/>
+<text x="495" y="170" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11" fill="#04342C">报</text>
+<rect x="524" y="152" width="42" height="28" rx="6" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.7"/>
+<text x="545" y="170" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11" fill="#04342C">考</text>
+<rect x="574" y="152" width="42" height="28" rx="6" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.7"/>
+<text x="595" y="170" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#04342C">&lt;eos&gt;</text>
+<text x="632" y="170" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">真值</text>
+<!-- 列箭头（抽样画三根，避免过密） -->
+<line x1="45" y1="116" x2="45" y2="148" stroke="#888780" stroke-width="1.0" marker-end="url(#ar)"/>
+<line x1="245" y1="116" x2="245" y2="148" stroke="#888780" stroke-width="1.0" marker-end="url(#ar)"/>
+<line x1="595" y1="116" x2="595" y2="148" stroke="#888780" stroke-width="1.0" marker-end="url(#ar)"/>
+<text x="45" y="136" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9" fill="#5F5E5A">…</text>
+<text x="245" y="136" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9" fill="#5F5E5A">…</text>
+<text x="595" y="136" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9" fill="#5F5E5A">…</text>
+<!-- 训练注释 -->
+<text x="24" y="204" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">每个位置各出一组 logits（12 组），同一份输出矩阵复用 12 次</text>
+<text x="24" y="223" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">每个位置对照右移后的真值算 Cross-Entropy——喂的是答案，不是模型的猜测</text>
+<text x="24" y="242" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#04342C">右移一位 = 第 t 个位置的输出被要求预测第 t+1 个 token（含结尾的 &lt;eos&gt;）</text>
+
+<line x1="24" y1="266" x2="656" y2="266" stroke="#D5D3CB" stroke-width="1.0"/>
+
+<!-- 推理带 -->
+<text x="24" y="296" font-family="PingFang SC, sans-serif" font-size="11.5" font-weight="500" fill="#3C3489">推理：自回归——一次只算一个位置</text>
+<rect x="24" y="312" width="160" height="48" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+<text x="104" y="333" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#2C2C2A">已生成前缀</text>
+<text x="104" y="350" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">… 报 考</text>
+<line x1="184" y1="336" x2="206" y2="336" stroke="#888780" stroke-width="1.2" marker-end="url(#ar)"/>
+<rect x="210" y="312" width="140" height="48" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="280" y="333" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#0C447C">只取最后位置</text>
+<text x="280" y="350" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#0C447C">的语义向量</text>
+<line x1="350" y1="336" x2="372" y2="336" stroke="#888780" stroke-width="1.2" marker-end="url(#ar)"/>
+<rect x="376" y="312" width="150" height="48" rx="8" fill="#9FE1CB" stroke="#1D9E75" stroke-width="1.0"/>
+<text x="451" y="333" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#04342C">Output Head</text>
+<text x="451" y="350" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#04342C">+ softmax</text>
+<line x1="526" y1="336" x2="548" y2="336" stroke="#888780" stroke-width="1.2" marker-end="url(#ar)"/>
+<rect x="552" y="312" width="104" height="48" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="604" y="333" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#3C3489">解码策略</text>
+<text x="604" y="350" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#3C3489">挑一个词</text>
+<path d="M604 360 L604 396 L104 396 L104 364" fill="none" stroke="#1D9E75" stroke-width="1.4" marker-end="url(#ag)" stroke-linejoin="round" stroke-dasharray="5 3"/>
+<text x="354" y="412" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#04342C">选中的词拼回前缀，进入下一步——每步只新增一个位置</text>
+<text x="24" y="440" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">前缀的 K/V 已缓存（第 3b 篇的 KV cache），Output Head 也只算最后一个向量</text>
+<text x="24" y="459" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">训练看 12 组 logits，推理每步只出 1 组：两套跑法，一套权重</text>
+
+<!-- 底部关键差异 -->
+<rect x="24" y="478" width="632" height="44" rx="8" fill="#FAFAF7" stroke="#D5D3CB" stroke-width="0.5"/>
+<text x="40" y="496" font-family="PingFang SC, sans-serif" font-size="10.5" font-weight="500" fill="#2C2C2A">两套跑法为什么长这样：并行需要输入全部已知；自回归的输入依赖自己上一步的输出，只能串行。</text>
+<text x="40" y="512" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">训练是"对照答案开卷做题"，推理是"闭卷并且自己抄写自己的答案"——质量差异由此而来（第三节）。</text>
+</svg>

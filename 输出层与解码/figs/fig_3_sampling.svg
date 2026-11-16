@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 470" width="680" height="470" role="img">
+<title>top-k 与 top-p：候选集怎么切</title>
+<desc>左右两个面板对比尖峰分布与平坦分布：top-p 的候选集宽度自适应分布形状，top-k 的刀口位置固定。</desc>
+<defs>
+<marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+</defs>
+<text x="24" y="26" font-family="PingFang SC, sans-serif" font-size="14" font-weight="500" fill="#2C2C2A">top-k 与 top-p：候选集怎么切</text>
+<text x="24" y="46" font-family="PingFang SC, sans-serif" font-size="11.5" fill="#5F5E5A">分布尖时该少留、分布平时该多留——只有 top-p 的刀口能跟着分布形状走</text>
+
+<!-- 面板 A：尖峰分布 -->
+<text x="24" y="82" font-family="PingFang SC, sans-serif" font-size="12" font-weight="500" fill="#2C2C2A">尖峰分布：模型很确定</text>
+<rect x="24" y="96" width="296" height="280" rx="8" fill="#FCFCFA" stroke="#D5D3CB" stroke-width="0.5"/>
+<rect x="40" y="196" width="34" height="144" rx="3" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.8"/>
+<rect x="84" y="316" width="34" height="24" rx="3" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.8"/>
+<rect x="128" y="326" width="34" height="14" rx="3" fill="#F1EFE8" stroke="#888780" stroke-width="0.6"/>
+<rect x="172" y="332" width="34" height="8" rx="3" fill="#F1EFE8" stroke="#888780" stroke-width="0.6"/>
+<rect x="216" y="334" width="34" height="6" rx="3" fill="#F1EFE8" stroke="#888780" stroke-width="0.6"/>
+<rect x="260" y="336" width="34" height="4" rx="2" fill="#F1EFE8" stroke="#888780" stroke-width="0.6"/>
+<text x="57" y="188" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#04342C">0.72</text>
+<text x="101" y="308" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#04342C">0.12</text>
+<text x="145" y="318" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">0.07</text>
+<text x="189" y="324" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">0.04</text>
+<text x="233" y="326" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">0.03</text>
+<text x="277" y="328" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">0.02</text>
+<line x1="36" y1="340" x2="308" y2="340" stroke="#888780" stroke-width="1.0"/>
+<text x="57" y="358" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#2C2C2A">。</text>
+<text x="101" y="358" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#2C2C2A">了</text>
+<text x="145" y="358" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">和</text>
+<text x="189" y="358" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">在</text>
+<text x="233" y="358" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">是</text>
+<text x="277" y="358" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">的</text>
+<line x1="167" y1="110" x2="167" y2="340" stroke="#C2410C" stroke-width="1.0" stroke-dasharray="4 3"/>
+<text x="167" y="122" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#C2410C">top-k = 3 的固定刀口</text>
+<text x="24" y="396" font-family="PingFang SC, sans-serif" font-size="10" fill="#04342C">top-p = 0.80 → 留 2 个（绿色）；top-k = 3 → 硬塞进第 3 名（0.07）</text>
+<text x="24" y="414" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">分布已经很尖，多留只会放进垃圾候选</text>
+
+<!-- 面板 B：平坦分布 -->
+<text x="360" y="82" font-family="PingFang SC, sans-serif" font-size="12" font-weight="500" fill="#2C2C2A">平坦分布：几个候选都合理</text>
+<rect x="360" y="96" width="296" height="280" rx="8" fill="#FCFCFA" stroke="#D5D3CB" stroke-width="0.5"/>
+<rect x="376" y="284" width="34" height="56" rx="3" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.8"/>
+<rect x="420" y="292" width="34" height="48" rx="3" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.8"/>
+<rect x="464" y="300" width="34" height="40" rx="3" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.8"/>
+<rect x="508" y="312" width="34" height="28" rx="3" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.8"/>
+<rect x="552" y="324" width="34" height="16" rx="3" fill="#F1EFE8" stroke="#888780" stroke-width="0.6"/>
+<rect x="596" y="328" width="34" height="12" rx="3" fill="#F1EFE8" stroke="#888780" stroke-width="0.6"/>
+<text x="393" y="276" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#04342C">0.28</text>
+<text x="437" y="284" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#04342C">0.24</text>
+<text x="481" y="292" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#04342C">0.20</text>
+<text x="525" y="304" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#04342C">0.14</text>
+<text x="569" y="316" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">0.08</text>
+<text x="613" y="320" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">0.06</text>
+<line x1="372" y1="340" x2="644" y2="340" stroke="#888780" stroke-width="1.0"/>
+<text x="393" y="358" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#2C2C2A">的</text>
+<text x="437" y="358" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#2C2C2A">在</text>
+<text x="481" y="358" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#2C2C2A">了</text>
+<text x="525" y="358" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#2C2C2A">是</text>
+<text x="569" y="358" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">和</text>
+<text x="613" y="358" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">。</text>
+<line x1="503" y1="110" x2="503" y2="340" stroke="#C2410C" stroke-width="1.0" stroke-dasharray="4 3"/>
+<text x="503" y="122" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#C2410C">top-k = 3 的固定刀口</text>
+<text x="360" y="396" font-family="PingFang SC, sans-serif" font-size="10" fill="#04342C">top-p = 0.80 → 留 4 个；top-k = 3 → 冤枉掉第 4 名（0.14）</text>
+<text x="360" y="414" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">前几名都合理，刀口切太早只会无谓地收窄表达</text>
+
+<!-- 图例与结论 -->
+<rect x="24" y="432" width="14" height="14" rx="3" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.8"/>
+<text x="46" y="443" font-family="PingFang SC, sans-serif" font-size="10" fill="#2C2C2A">top-p 保留</text>
+<rect x="130" y="432" width="14" height="14" rx="3" fill="#F1EFE8" stroke="#888780" stroke-width="0.6"/>
+<text x="152" y="443" font-family="PingFang SC, sans-serif" font-size="10" fill="#2C2C2A">被截断</text>
+<line x1="210" y1="439" x2="240" y2="439" stroke="#C2410C" stroke-width="1.0" stroke-dasharray="4 3"/>
+<text x="248" y="443" font-family="PingFang SC, sans-serif" font-size="10" fill="#2C2C2A">top-k 的固定刀口</text>
+<text x="24" y="466" font-family="PingFang SC, sans-serif" font-size="10.5" font-weight="500" fill="#04342C">候选集宽度随分布形状自适应——这是 chat 模型默认 top-p 的直接原因（正文 3.3）。</text>
+</svg>

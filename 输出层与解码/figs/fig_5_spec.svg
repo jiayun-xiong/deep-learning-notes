@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 400" width="680" height="400" role="img">
+<title>投机解码：草稿连猜、目标一次并行验证</title>
+<desc>上排串行解码每个词都要一次大模型前向；下排草稿模型连猜四个词、目标模型一次前向验证五个位置，逐个判接受，拒绝处从修正分布重采。</desc>
+<text x="24" y="26" font-family="PingFang SC, sans-serif" font-size="14" font-weight="500" fill="#2C2C2A">投机解码：草稿连猜、目标一次并行验证</text>
+<text x="24" y="46" font-family="PingFang SC, sans-serif" font-size="11.5" fill="#5F5E5A">瓶颈是显存带宽不是算力——权重只读一遍，多算几个位置的边际成本几乎为零</text>
+
+<!-- 一、串行 -->
+<text x="24" y="72" font-family="PingFang SC, sans-serif" font-size="11.5" font-weight="500" fill="#2C2C2A">串行：出 4 个词 = 4 次大模型前向，权重读 4 遍</text>
+<rect x="24" y="82" width="148" height="40" rx="5" fill="#F1EFE8" stroke="#888780" stroke-width="0.7"/>
+<rect x="172" y="82" width="148" height="40" rx="5" fill="#F1EFE8" stroke="#888780" stroke-width="0.7"/>
+<rect x="320" y="82" width="148" height="40" rx="5" fill="#F1EFE8" stroke="#888780" stroke-width="0.7"/>
+<rect x="468" y="82" width="148" height="40" rx="5" fill="#F1EFE8" stroke="#888780" stroke-width="0.7"/>
+<text x="98" y="99" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#2C2C2A">前向 1 次</text>
+<text x="98" y="114" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">出第 1 个词</text>
+<text x="246" y="99" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#2C2C2A">前向 1 次</text>
+<text x="246" y="114" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">出第 2 个词</text>
+<text x="394" y="99" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#2C2C2A">前向 1 次</text>
+<text x="394" y="114" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">出第 3 个词</text>
+<text x="542" y="99" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#2C2C2A">前向 1 次</text>
+<text x="542" y="114" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">出第 4 个词</text>
+
+<!-- 二、投机 -->
+<text x="24" y="150" font-family="PingFang SC, sans-serif" font-size="11.5" font-weight="500" fill="#04342C">投机：草稿连猜 4 个（便宜）+ 目标验证 1 次 = 一次拿到 4 个词</text>
+<rect x="24" y="160" width="46" height="40" rx="5" fill="#F7D5C3" stroke="#C2410C" stroke-width="0.7"/>
+<text x="47" y="177" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#7A2E08">草稿</text>
+<text x="47" y="191" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#7A2E08">×4</text>
+<rect x="70" y="160" width="148" height="40" rx="5" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.8"/>
+<text x="144" y="177" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#04342C">目标验证 5 个位置</text>
+<text x="144" y="191" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#04342C">只做 1 次前向</text>
+<line x1="226" y1="180" x2="616" y2="180" stroke="#D5D3CB" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="236" y="174" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#888780">同样的时间，串行那边才刚出第 1 个词</text>
+
+<!-- 三、验证细节 -->
+<text x="24" y="230" font-family="PingFang SC, sans-serif" font-size="11.5" font-weight="500" fill="#2C2C2A">验证一次为什么不改分布：从左逐个判接受，拒绝处从修正分布重采</text>
+<rect x="24" y="240" width="96" height="34" rx="4" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.7"/>
+<rect x="126" y="240" width="96" height="34" rx="4" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.7"/>
+<rect x="228" y="240" width="96" height="34" rx="4" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.7"/>
+<rect x="330" y="240" width="96" height="34" rx="4" fill="#F7D5C3" stroke="#C2410C" stroke-width="0.7"/>
+<rect x="432" y="240" width="118" height="34" rx="4" fill="#FCFCFA" stroke="#1D9E75" stroke-width="0.9" stroke-dasharray="4 3"/>
+<text x="72" y="261" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#04342C">第 1 个 接受</text>
+<text x="174" y="261" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#04342C">第 2 个 接受</text>
+<text x="276" y="261" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#04342C">第 3 个 接受</text>
+<text x="378" y="261" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#7A2E08">第 4 个 拒绝</text>
+<text x="491" y="261" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#04342C">重采样 1 个</text>
+<text x="330" y="292" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">丢弃，其后草稿作废</text>
+<text x="436" y="292" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">从「目标减草稿」的正部重采</text>
+
+<text x="24" y="320" font-family="PingFang SC, sans-serif" font-size="10" fill="#04342C">接受规则：草稿给的词，目标模型也认（概率比不低于 1）就照收；不认就丢，从残差分布补一个。</text>
+<text x="24" y="338" font-family="PingFang SC, sans-serif" font-size="10" fill="#04342C">两条路（照收 + 拒绝后补采）拼起来，逐点等于目标模型的分布——所以是无损加速。</text>
+<text x="24" y="366" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">代算：γ = 4、单步接受率 0.8 时，一轮期望出 3.36 个词，代价约 1.2 次前向，比值 2.8 倍（实测 2–3 倍）。</text>
+<text x="24" y="386" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">边界：大 batch 下算力已饱和，并行验证没有收益；它省的是带宽，不是算力。</text>
+</svg>

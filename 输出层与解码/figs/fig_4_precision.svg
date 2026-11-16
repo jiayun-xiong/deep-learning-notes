@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 396" width="680" height="396" role="img">
+<title>四种浮点格式的位分配：指数位定范围，尾数位定精度</title>
+<desc>fp32、fp16、bf16 与 fp8 两种变体的符号位、指数位、尾数位对比，附最大可表示值与相对精度。</desc>
+<text x="24" y="26" font-family="PingFang SC, sans-serif" font-size="14" font-weight="500" fill="#2C2C2A">四种浮点格式：指数位定范围，尾数位定精度</text>
+<text x="24" y="46" font-family="PingFang SC, sans-serif" font-size="11.5" fill="#5F5E5A">同样 16 位，fp16 把位给精度、bf16 把位给范围——训练最怕的是溢出，所以 bf16 成了默认</text>
+
+<!-- 表头 -->
+<text x="24" y="74" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#888780">格式 · 字节数</text>
+<text x="110" y="74" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#888780">位布局（1 格 = 1 位）</text>
+<text x="432" y="74" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#888780">最大可表示</text>
+<text x="548" y="74" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#888780">相对精度</text>
+
+<!-- fp32 -->
+<text x="24" y="105" font-family="PingFang SC, sans-serif" font-size="10.5" font-weight="500" fill="#2C2C2A">fp32 · 4 B</text>
+<rect x="110" y="88" width="8.5" height="26" fill="#E8E6DF" stroke="#B4B2A9" stroke-width="0.6"/>
+<rect x="118.5" y="88" width="68" height="26" fill="#F7D5C3" stroke="#C2410C" stroke-width="0.6"/>
+<rect x="186.5" y="88" width="195.5" height="26" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.6"/>
+<text x="152.5" y="105" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="8.5" fill="#7A2E08">E8</text>
+<text x="284" y="105" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="8.5" fill="#04342C">M23</text>
+<text x="432" y="105" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">±3.4e38</text>
+<text x="548" y="105" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">6e-8</text>
+<line x1="24" y1="122" x2="656" y2="122" stroke="#EFEDE6" stroke-width="0.8"/>
+
+<!-- fp16 -->
+<text x="24" y="153" font-family="PingFang SC, sans-serif" font-size="10.5" font-weight="500" fill="#2C2C2A">fp16 · 2 B</text>
+<rect x="110" y="136" width="8.5" height="26" fill="#E8E6DF" stroke="#B4B2A9" stroke-width="0.6"/>
+<rect x="118.5" y="136" width="42.5" height="26" fill="#F7D5C3" stroke="#C2410C" stroke-width="0.6"/>
+<rect x="161" y="136" width="85" height="26" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.6"/>
+<text x="139.75" y="153" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="8.5" fill="#7A2E08">E5</text>
+<text x="203.5" y="153" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="8.5" fill="#04342C">M10</text>
+<text x="432" y="153" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">65504</text>
+<text x="548" y="153" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">5e-4</text>
+<line x1="24" y1="170" x2="656" y2="170" stroke="#EFEDE6" stroke-width="0.8"/>
+
+<!-- bf16 -->
+<text x="24" y="201" font-family="PingFang SC, sans-serif" font-size="10.5" font-weight="500" fill="#04342C">bf16 · 2 B</text>
+<rect x="110" y="184" width="8.5" height="26" fill="#E8E6DF" stroke="#B4B2A9" stroke-width="0.6"/>
+<rect x="118.5" y="184" width="42.5" height="26" fill="#F7D5C3" stroke="#C2410C" stroke-width="0.6"/>
+<rect x="161" y="184" width="59.5" height="26" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.6"/>
+<text x="139.75" y="201" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="8.5" fill="#7A2E08">E5</text>
+<text x="190.75" y="201" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="8.5" fill="#04342C">M7</text>
+<text x="432" y="201" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">同 fp32</text>
+<text x="548" y="201" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">4e-3</text>
+<line x1="24" y1="218" x2="656" y2="218" stroke="#EFEDE6" stroke-width="0.8"/>
+
+<!-- fp8 E4M3 -->
+<text x="24" y="249" font-family="PingFang SC, sans-serif" font-size="10.5" font-weight="500" fill="#2C2C2A">fp8 E4M3 · 1 B</text>
+<rect x="110" y="232" width="8.5" height="26" fill="#E8E6DF" stroke="#B4B2A9" stroke-width="0.6"/>
+<rect x="118.5" y="232" width="34" height="26" fill="#F7D5C3" stroke="#C2410C" stroke-width="0.6"/>
+<rect x="152.5" y="232" width="25.5" height="26" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.6"/>
+<text x="135.5" y="249" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="8.5" fill="#7A2E08">E4</text>
+<text x="432" y="249" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">448</text>
+<text x="548" y="249" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">6.3e-2</text>
+<line x1="24" y1="266" x2="656" y2="266" stroke="#EFEDE6" stroke-width="0.8"/>
+
+<!-- fp8 E5M2 -->
+<text x="24" y="297" font-family="PingFang SC, sans-serif" font-size="10.5" font-weight="500" fill="#2C2C2A">fp8 E5M2 · 1 B</text>
+<rect x="110" y="280" width="8.5" height="26" fill="#E8E6DF" stroke="#B4B2A9" stroke-width="0.6"/>
+<rect x="118.5" y="280" width="42.5" height="26" fill="#F7D5C3" stroke="#C2410C" stroke-width="0.6"/>
+<rect x="161" y="280" width="17" height="26" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.6"/>
+<text x="139.75" y="297" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="8.5" fill="#7A2E08">E5</text>
+<text x="432" y="297" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">57344</text>
+<text x="548" y="297" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">1.3e-1</text>
+
+<!-- 图例 -->
+<rect x="24" y="326" width="11" height="11" fill="#E8E6DF" stroke="#B4B2A9" stroke-width="0.6"/>
+<text x="41" y="335" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">符号位（1 位，全都一样）</text>
+<rect x="192" y="326" width="11" height="11" fill="#F7D5C3" stroke="#C2410C" stroke-width="0.6"/>
+<text x="209" y="335" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">指数位 → 管范围</text>
+<rect x="320" y="326" width="11" height="11" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.6"/>
+<text x="337" y="335" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">尾数位 → 管精度</text>
+
+<!-- 结论 -->
+<text x="24" y="360" font-family="PingFang SC, sans-serif" font-size="10" fill="#04342C">E4M3（尾数 3 位）存权重与激活：范围够用、要的是精度；E5M2（尾数 2 位）存梯度：梯度跨数量级、容得下粗</text>
+<text x="24" y="380" font-family="PingFang SC, sans-serif" font-size="10" fill="#5F5E5A">softmax 必须留在 fp32：指数一放大 fp16 立刻溢出，三万七千项累加又会把小项吞掉（正文 4.2）</text>
+</svg>

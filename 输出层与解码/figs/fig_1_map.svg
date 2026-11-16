@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 490" width="680" height="490" role="img">
+<title>输出层与解码：本篇地图</title>
+<desc>上半部是整机最后一段流水线（block 到下一个词），中部左右分栏对比训练与推理两套跑法，底部是解码策略谱系。</desc>
+<defs>
+<marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+<marker id="ag" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M2 1L8 5L2 9" fill="none" stroke="#1D9E75" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+</defs>
+<text x="24" y="26" font-family="PingFang SC, sans-serif" font-size="14" font-weight="500" fill="#2C2C2A">输出层与解码：本篇地图</text>
+<text x="24" y="46" font-family="PingFang SC, sans-serif" font-size="11.5" fill="#5F5E5A">整机的最后一段：语义向量如何变成下一个词，训练与推理从这里分道</text>
+
+<!-- 顶部流水线 -->
+<rect x="24" y="72" width="140" height="46" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="94" y="92" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11" fill="#0C447C">Transformer block</text>
+<text x="94" y="108" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#0C447C">× N 层</text>
+<line x1="164" y1="95" x2="186" y2="95" stroke="#888780" stroke-width="1.2" marker-end="url(#ar)"/>
+<rect x="190" y="72" width="80" height="46" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+<text x="230" y="99" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11" fill="#2C2C2A">final LN</text>
+<line x1="270" y1="95" x2="292" y2="95" stroke="#888780" stroke-width="1.2" marker-end="url(#ar)"/>
+<rect x="296" y="72" width="130" height="46" rx="8" fill="#9FE1CB" stroke="#1D9E75" stroke-width="1.0"/>
+<text x="361" y="92" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11" font-weight="500" fill="#04342C">Output Head</text>
+<text x="361" y="108" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#04342C">Linear：d 投回 V</text>
+<line x1="426" y1="95" x2="448" y2="95" stroke="#888780" stroke-width="1.2" marker-end="url(#ar)"/>
+<rect x="452" y="72" width="92" height="46" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="498" y="99" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11" fill="#3C3489">softmax</text>
+<line x1="544" y1="95" x2="566" y2="95" stroke="#888780" stroke-width="1.2" marker-end="url(#ar)"/>
+<rect x="570" y="72" width="86" height="46" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+<text x="613" y="99" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="11" fill="#2C2C2A">概率分布</text>
+<text x="613" y="112" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">全词表</text>
+<text x="94" y="136" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">每个位置一个语义向量</text>
+<text x="361" y="136" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#04342C">logits：对每个词打分</text>
+<text x="498" y="136" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#3C3489">分数变概率</text>
+
+<!-- 左栏：训练 -->
+<rect x="24" y="164" width="306" height="180" rx="8" fill="#FAFAF7" stroke="#D5D3CB" stroke-width="0.5"/>
+<text x="40" y="190" font-family="PingFang SC, sans-serif" font-size="12" font-weight="500" fill="#0C447C">训练：一次算完</text>
+<text x="40" y="212" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">Teacher Forcing：真值右移一位当输入</text>
+<text x="40" y="231" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">L 个位置并行，共用同一份输出矩阵</text>
+<text x="40" y="250" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">每个位置对照真值算 Cross-Entropy</text>
+<rect x="40" y="270" width="86" height="30" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="83" y="289" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#0C447C">L 个向量</text>
+<line x1="126" y1="285" x2="144" y2="285" stroke="#888780" stroke-width="1.1" marker-end="url(#ar)"/>
+<rect x="148" y="270" width="94" height="30" rx="6" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.5"/>
+<text x="195" y="289" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#04342C">Output Head</text>
+<line x1="242" y1="285" x2="260" y2="285" stroke="#888780" stroke-width="1.1" marker-end="url(#ar)"/>
+<rect x="264" y="270" width="56" height="30" rx="6" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+<text x="292" y="289" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#2C2C2A">loss</text>
+<text x="40" y="326" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#04342C">并行成立的条件：每个位置的输入都是真值</text>
+
+<!-- 右栏：推理 -->
+<rect x="350" y="164" width="306" height="180" rx="8" fill="#FAFAF7" stroke="#D5D3CB" stroke-width="0.5"/>
+<text x="366" y="190" font-family="PingFang SC, sans-serif" font-size="12" font-weight="500" fill="#3C3489">推理：一次一个</text>
+<text x="366" y="212" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">自回归：前缀喂进去，只取最后位置</text>
+<text x="366" y="231" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">softmax 出全词表概率</text>
+<text x="366" y="250" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#5F5E5A">解码策略挑一个，拼回前缀再来一步</text>
+<rect x="366" y="270" width="86" height="30" rx="6" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="409" y="289" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#3C3489">前缀</text>
+<line x1="452" y1="285" x2="470" y2="285" stroke="#888780" stroke-width="1.1" marker-end="url(#ar)"/>
+<rect x="474" y="270" width="94" height="30" rx="6" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.5"/>
+<text x="521" y="289" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#04342C">Output Head</text>
+<line x1="568" y1="285" x2="586" y2="285" stroke="#888780" stroke-width="1.1" marker-end="url(#ar)"/>
+<rect x="590" y="270" width="56" height="30" rx="6" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+<text x="618" y="289" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10" fill="#2C2C2A">挑词</text>
+<path d="M618 300 L618 316 L409 316 L409 304" fill="none" stroke="#888780" stroke-width="1.1" marker-end="url(#ar)" stroke-linejoin="round"/>
+<text x="513" y="330" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">选中词拼回前缀，循环</text>
+
+<!-- 底部：解码策略谱系 -->
+<text x="24" y="380" font-family="PingFang SC, sans-serif" font-size="11" font-weight="500" fill="#2C2C2A">解码策略谱系（第三节）</text>
+<rect x="24" y="392" width="140" height="40" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+<text x="94" y="409" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#2C2C2A">greedy</text>
+<text x="94" y="424" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9" fill="#5F5E5A">每步取最大，不回头</text>
+<line x1="164" y1="412" x2="186" y2="412" stroke="#888780" stroke-width="1.2" marker-end="url(#ar)"/>
+<rect x="190" y="392" width="150" height="40" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+<text x="265" y="409" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#2C2C2A">beam search</text>
+<text x="265" y="424" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9" fill="#5F5E5A">保多条候选：机器翻译时代</text>
+<line x1="340" y1="412" x2="362" y2="412" stroke="#888780" stroke-width="1.2" marker-end="url(#ar)"/>
+<rect x="366" y="392" width="150" height="40" rx="8" fill="#9FE1CB" stroke="#1D9E75" stroke-width="1.0"/>
+<text x="441" y="409" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10.5" font-weight="500" fill="#04342C">采样：top-p</text>
+<text x="441" y="424" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9" fill="#04342C">temperature · top-k：chat 主流</text>
+<line x1="516" y1="412" x2="538" y2="412" stroke="#888780" stroke-width="1.2" marker-end="url(#ar)"/>
+<rect x="542" y="392" width="114" height="40" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+<text x="599" y="409" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="10.5" fill="#2C2C2A">speculative</text>
+<text x="599" y="424" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="9" fill="#5F5E5A">一次出多个：加速</text>
+<text x="24" y="462" font-family="PingFang SC, sans-serif" font-size="9.5" fill="#5F5E5A">第四节的三个现代配方（z-loss、bf16/fp8、投机解码）不改本图结构，只改每个框内部的数值与速度。</text>
+</svg>
