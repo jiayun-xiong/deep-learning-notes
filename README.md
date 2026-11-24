@@ -57,7 +57,7 @@
 
 ## 接下来
 
-Transformer 部分告一段落，**目前正在学习 Agent**——从基础概念、经典论文到动手实现，学到一定阶段会把这个仓库里沉淀下来的 Agent 学习笔记更新上来，敬请期待。
+Transformer 部分告一段落，**目前正在学习 Agent**。这一块的笔记单独放在另一个仓库：[stanford-329z-notes](https://github.com/jiayun-xiong/stanford-329z-notes)——斯坦福 CS329Z 课程笔记，从 Agent 的定义与循环开始，逐讲收录正文、排版 PDF 和原始课件。第一讲已上线，后续讲次写完会继续更新；这个仓库仍专注深度学习基础。
 
 ## 一点说明
 
